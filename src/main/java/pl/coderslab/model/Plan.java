@@ -57,4 +57,15 @@ public class Plan {
     public void setAdmins(Admins admins) {
         this.admins = admins;
     }
+
+    @Override
+    public String toString() {
+        return "Plan{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", created=" + created +
+                ", admins=" + admins +
+                '}';
+    }
 }
