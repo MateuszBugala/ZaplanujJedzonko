@@ -1,6 +1,7 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.exception.NotFoundException;
+import pl.coderslab.model.Admins;
 import pl.coderslab.model.Recipe;
 import pl.coderslab.utils.DbUtil;
 
@@ -69,7 +70,7 @@ public class RecipeDao {
                     recipe.setUpdated(resultSet.getTimestamp("updated"));
                     recipe.setPreparationTime(resultSet.getInt("preparation_time"));
                     recipe.setPreparation(resultSet.getString("preparation"));
-                    Admins admins = Admins.read(resultSet.getInt("admin_id"));
+                    Admins admins = AdminDao.read(resultSet.getInt("admin_id"));
                     recipe.setAdmins(admins);
                 }
             }
@@ -130,7 +131,7 @@ public class RecipeDao {
                 recipe.setUpdated(resultSet.getTimestamp("updated"));
                 recipe.setPreparationTime(resultSet.getInt("preparation_time"));
                 recipe.setPreparation(resultSet.getString("preparation"));
-                Admins admins = Admins.read(resultSet.getInt("admin_id"));
+                Admins admins = AdminDao.read(resultSet.getInt("admin_id"));
                 recipe.setAdmins(admins);
 
                 recipeList.add(recipe);
