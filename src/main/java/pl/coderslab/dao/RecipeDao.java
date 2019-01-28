@@ -30,7 +30,7 @@ public class RecipeDao {
             preparedStatement.setString(3, recipe.getDescription());
             preparedStatement.setInt(4, recipe.getPreparationTime());
             preparedStatement.setString(5, recipe.getPreparation());
-            preparedStatement.setInt(6, recipe.getAdmins().getId()); /*sprawdzić po utworzeniu klasy Admin czy prawidłowe*/
+            preparedStatement.setInt(6, recipe.getAdmins().getId());
             int result = preparedStatement.executeUpdate();
 
             if (result != 1) {
@@ -69,7 +69,7 @@ public class RecipeDao {
                     recipe.setUpdated(resultSet.getTimestamp("updated"));
                     recipe.setPreparationTime(resultSet.getInt("preparation_time"));
                     recipe.setPreparation(resultSet.getString("preparation"));
-                    Admins admins = Admins.read(resultSet.getInt("admin_id")); /*sprawdzić po utworzeniu klasy Admin czy prawidłowe*/
+                    Admins admins = Admins.read(resultSet.getInt("admin_id"));
                     recipe.setAdmins(admins);
                 }
             }
@@ -89,7 +89,7 @@ public class RecipeDao {
             preparedStatement.setString(3, recipe.getDescription());
             preparedStatement.setInt(4, recipe.getPreparationTime());
             preparedStatement.setString(5, recipe.getPreparation());
-            preparedStatement.setInt(6, recipe.getAdmins().getId()); /*sprawdzić po utworzeniu klasy Admin czy prawidłowe*/
+            preparedStatement.setInt(6, recipe.getAdmins().getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -103,7 +103,7 @@ public class RecipeDao {
              PreparedStatement statement = connection.prepareStatement(DELETE_RECIPE_QUERY)) {
             statement.setInt(1, recipeId);
             statement.executeUpdate();
-// czy tutaj nie powinno być coś jakby this.id = 0;
+
             boolean deleted = statement.execute();
             if (!deleted) {
                 throw new NotFoundException("Recipe not found");
@@ -130,7 +130,7 @@ public class RecipeDao {
                 recipe.setUpdated(resultSet.getTimestamp("updated"));
                 recipe.setPreparationTime(resultSet.getInt("preparation_time"));
                 recipe.setPreparation(resultSet.getString("preparation"));
-                Admins admins = Admins.read(resultSet.getInt("admin_id")); /*sprawdzić po utworzeniu klasy Admin czy prawidłowe*/
+                Admins admins = Admins.read(resultSet.getInt("admin_id"));
                 recipe.setAdmins(admins);
 
                 recipeList.add(recipe);
@@ -142,15 +142,5 @@ public class RecipeDao {
         return recipeList;
 
     }
-
-//    private int id;
-//    private String name;
-//    private String ingredients;
-//    private String description;
-//    private Timestamp created;
-//    private Timestamp updated;
-//    private int preparationTime;
-//    private String preparation;
-//    private Admins admins;
 
 }
