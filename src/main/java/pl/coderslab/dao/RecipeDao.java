@@ -19,10 +19,10 @@ public class RecipeDao {
     private static final String UPDATE_RECIPE_QUERY = "UPDATE recipe SET name = ? , ingredients = ?, description = ?, updated = NOW(), preparation_time = ?, preparation = ?, admin_id =? WHERE	id = ?";
     private static final String DELETE_RECIPE_QUERY = "DELETE FROM recipe where id = ?";
     private static final String FIND_ALL_RECIPES_QUERY = "SELECT * FROM recipe";
+    private static final String COUNT_RECIPE_QUERY = "SELECT COUNT(*) AS rowCount from recipe where admin_id = ?";
 
 
-
-    public Recipe create(Recipe recipe) {
+    public static Recipe create(Recipe recipe) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE_RECIPE_QUERY,
                      PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -54,7 +54,7 @@ public class RecipeDao {
     }
 
 
-    public Recipe read(Integer recipeId) {
+    public static Recipe read(Integer recipeId) {
         Recipe recipe = new Recipe();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(READ_RECIPE_QUERY)
@@ -81,7 +81,7 @@ public class RecipeDao {
     }
 
 
-    public void update(Recipe recipe) {
+    public static void update(Recipe recipe) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_RECIPE_QUERY)) {
             preparedStatement.setInt(7, recipe.getId());
@@ -99,7 +99,7 @@ public class RecipeDao {
     }
 
 
-    public void delete(Integer recipeId) {
+    public static void delete(Integer recipeId) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_RECIPE_QUERY)) {
             statement.setInt(1, recipeId);
@@ -115,7 +115,7 @@ public class RecipeDao {
     }
 
 
-    public List<Recipe> findAll() {
+    public static List<Recipe> findAll() {
         List<Recipe> recipeList = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_ALL_RECIPES_QUERY);
@@ -144,4 +144,22 @@ public class RecipeDao {
 
     }
 
+    public static int countRecipeById(Integer recipeId) {
+        int count = 0;
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(COUNT_RECIPE_QUERY)
+        ) {
+            statement.setInt(1, recipeId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    count = resultSet.getInt("rowCount");
+                    return count;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+
+    }
 }

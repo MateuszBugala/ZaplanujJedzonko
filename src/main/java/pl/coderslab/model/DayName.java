@@ -38,4 +38,14 @@ public class DayName {
     public void setOrder(int order) {
         this.order = order;
     }
+
+    @Override
+    public String toString() {
+        return "DayName{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", order=" + order +
+                '}';
+    }
 }
+
