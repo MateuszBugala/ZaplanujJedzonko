@@ -1,5 +1,6 @@
 package pl.coderslab.dao;
 
+import org.mindrot.jbcrypt.BCrypt;
 import pl.coderslab.exception.NotFoundException;
 import pl.coderslab.model.Admins;
 import pl.coderslab.model.Book;
@@ -141,5 +142,15 @@ public class AdminDao {
 
     }
 
-
+    public static Admins authorization(String emailCandidate, String passwordCandidate) {
+        List<Admins> adminsList = AdminDao.findAll();
+        for (Admins admin : adminsList) {
+            if (emailCandidate.equals(admin.getEmail())) {
+                if (BCrypt.checkpw(passwordCandidate,admin.getPassword())) {
+                    return admin;
+                }
+            }
+        }
+        return null;
+    }
 }

@@ -21,19 +21,14 @@ public class Login extends HttpServlet {
 
         String emailCandidate = request.getParameter("email");
         String passwordCandidate = request.getParameter("password");
+        Admins authorizedUser = AdminDao.authorization(emailCandidate, passwordCandidate);
 
-        List<Admins> adminsList = AdminDao.findAll();
-        for (Admins admin : adminsList) {
-            if (emailCandidate.equals(admin.getEmail())) {
-                if (BCrypt.checkpw(passwordCandidate,admin.getPassword())) {
-//                    dodanie użytkownika do sesji:
-                    sess.setAttribute("currentUser",admin);
-//                    przekierowanie na stronę główną:
-                    response.sendRedirect("/");
-                    return;
-                }
-            }
+        if (authorizedUser != null) {
+            sess.setAttribute("currentUser", authorizedUser);
+            response.sendRedirect("/");
+            return;
         }
+
         request.setAttribute("error", "error");
         getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
     }
