@@ -5,6 +5,8 @@
     <title>Home</title>
 </head>
 <body>
+<%@include file="/header.jsp" %>
 <h1>Strona główna</h1>
+<%@include file="/footer.jsp" %>
 </body>
 </html>
