@@ -1,5 +1,8 @@
 package pl.coderslab.web;
 
+import pl.coderslab.dao.AdminDao;
+import pl.coderslab.model.Admins;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,15 +13,16 @@ import java.io.IOException;
 @WebServlet("/register")
 public class Register extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        do wykorzystania później:
-//        response.setContentType("text/html");
-//        response.setCharacterEncoding("UTF-8");
-//        request.setCharacterEncoding("UTF-8");
-//
-//        request.getParameter("name");
-//        request.getParameter("surname");
-//        request.getParameter("email");
-//        request.getParameter("password");
+        request.setCharacterEncoding("UTF-8");
+        Admins admins = new Admins();
+
+        admins.setFirstName(request.getParameter("name"));
+        admins.setLastName(request.getParameter("surname"));
+        admins.setEmail(request.getParameter("email"));
+        admins.setPassword(request.getParameter("password"));
+        AdminDao.create(admins);
+
+        response.sendRedirect("/login");
 
     }
 
