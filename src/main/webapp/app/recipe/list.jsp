@@ -9,15 +9,15 @@
           crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Charmonman:400,700|Open+Sans:400,600,700&amp;subset=latin-ext"
           rel="stylesheet">
-    <link rel="stylesheet" href='<c:url value="/css/style.css"/>'>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href='<c:url value="/css/style.css"/>' rel="stylesheet" type="text/css">
 </head>
 <body>
 <%@include file="/header.jsp" %>
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
 
-        <%@include file="/sidepanel.jsp" %>
+
 
         <div class="m-4 p-3 width-medium">
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
@@ -39,7 +39,7 @@
                     <c:forEach begin="0" step="1" end="${recipes.size()-1}" var="number">
 
                         <tr class="d-flex">
-                            <th scope="row" class="col-1">1</th>
+                            <th scope="row" class="col-1">${recipes.get(number).getId()}</th>
                             <td class="col-2">
                                     ${recipes.get(number).getName()}
                             </td>
