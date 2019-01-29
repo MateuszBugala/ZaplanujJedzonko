@@ -22,7 +22,7 @@ public class RecipeDao {
     private static final String COUNT_RECIPE_QUERY = "SELECT COUNT(*) AS rowCount from recipe where admin_id = ?";
 
 
-    public Recipe create(Recipe recipe) {
+    public static Recipe create(Recipe recipe) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE_RECIPE_QUERY,
                      PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -54,7 +54,7 @@ public class RecipeDao {
     }
 
 
-    public Recipe read(Integer recipeId) {
+    public static Recipe read(Integer recipeId) {
         Recipe recipe = new Recipe();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(READ_RECIPE_QUERY)
@@ -81,7 +81,7 @@ public class RecipeDao {
     }
 
 
-    public void update(Recipe recipe) {
+    public static void update(Recipe recipe) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_RECIPE_QUERY)) {
             preparedStatement.setInt(7, recipe.getId());
@@ -99,7 +99,7 @@ public class RecipeDao {
     }
 
 
-    public void delete(Integer recipeId) {
+    public static void delete(Integer recipeId) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_RECIPE_QUERY)) {
             statement.setInt(1, recipeId);
@@ -115,7 +115,7 @@ public class RecipeDao {
     }
 
 
-    public List<Recipe> findAll() {
+    public static List<Recipe> findAll() {
         List<Recipe> recipeList = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_ALL_RECIPES_QUERY);
