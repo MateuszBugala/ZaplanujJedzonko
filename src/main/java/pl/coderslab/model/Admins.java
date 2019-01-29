@@ -6,18 +6,20 @@ public class Admins {
     private int id;
     private String firstName;
     private String lastName;
-    private String password;
     private String email;
+    private String password;
     private int superadmin;
     private boolean enable;
 
-    public Admins(String firstName, String lastName, String email, String password, int superadmin) {
+
+    public Admins(String firstName, String lastName, String email, String password, int superadmin, boolean enable) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.setPassword(password);
         this.superadmin = superadmin;
-
+        this.enable = enable;
     }
 
     public Admins() { }
@@ -80,7 +82,7 @@ public class Admins {
 
     @Override
     public String toString() {
-        return "Admins [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password + ", superadmin=" + superadmin + ", enable=" + enable+"]";
+        return "Admins [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password=" + password + ", superadmin=" + superadmin + ", enable=" + enable+"]";
 
     }
 }
