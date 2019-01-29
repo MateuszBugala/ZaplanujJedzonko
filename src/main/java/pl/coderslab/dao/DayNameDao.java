@@ -16,7 +16,7 @@ public class DayNameDao {
     private static final String FIND_ALL_DAYNAME_QUERY = "SELECT * FROM day_name";
 
 
-    public List<DayName> findAll() {
+    public static List<DayName> findAll() {
         List<DayName> dayNameList = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_ALL_DAYNAME_QUERY);
@@ -37,6 +37,8 @@ public class DayNameDao {
 
     }
 
-
-
+    @Override
+    public String toString() {
+        return "DayNameDao{}";
+    }
 }
