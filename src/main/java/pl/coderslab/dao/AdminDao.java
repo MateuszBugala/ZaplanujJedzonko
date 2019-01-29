@@ -14,11 +14,11 @@ import java.util.List;
 
 public class AdminDao {
     // ZAPYTANIA SQL
-    private static final String CREATE_ADMIN_QUERY = "INSERT INTO admins (id, first_name, last_name, email, password, superadmin) VALUES (null, ?,?,?,?,?)";
+    private static final String CREATE_ADMIN_QUERY = "INSERT INTO admins (id, first_name, last_name, email, password, superadmin, enable) VALUES (null, ?,?,?,?,?,?)";
     private static final String DELETE_ADMIN_QUERY = "DELETE FROM admins WHERE id = ?";
     private static final String FIND_ALL_ADMIN_QUERY = "SELECT * FROM admins";
     private static final String READ_ADMIN_QUERY = "SELECT * FROM admins WHERE id = ?";
-    private static final String UPDATE_ADMIN_QUERY = "UPDATE admins SET first_name = ? , last_name = ?, email = ?, password = ?, superadmin = ? WHERE id = ?";
+    private static final String UPDATE_ADMIN_QUERY = "UPDATE admins SET first_name = ? , last_name = ?, email = ?, password = ?, superadmin = ?, enable = ? WHERE id = ?";
 
 
     // Get admin by id
@@ -84,6 +84,7 @@ public class AdminDao {
             insertStm.setString(3, admin.getEmail());
             insertStm.setString(4, admin.getPassword());
             insertStm.setInt(5, admin.getSuperadmin());
+            insertStm.setBoolean(6, admin.isEnable());
             int result = insertStm.executeUpdate();
 
             if (result != 1) {
@@ -125,12 +126,13 @@ public class AdminDao {
     public static void update(Admins admin) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_ADMIN_QUERY);) {
-            statement.setInt(6, admin.getId());
+            statement.setInt(7, admin.getId());
             statement.setString(1, admin.getFirstName());
             statement.setString(2, admin.getLastName());
             statement.setString(3, admin.getEmail());
             statement.setString(4, admin.getPassword());
             statement.setInt(5, admin.getSuperadmin());
+            statement.setBoolean(6, admin.isEnable());
 
             statement.executeUpdate();
         } catch (Exception e) {

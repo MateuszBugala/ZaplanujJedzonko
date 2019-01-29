@@ -117,6 +117,7 @@ public class PlanDao {
             while (resultSet.next()) {
                 Plan planToAdd = new Plan();
                 planToAdd.setId(resultSet.getInt("id"));
+                planToAdd.setName(resultSet.getString("name"));
                 planToAdd.setDescription(resultSet.getString("description"));
                 planToAdd.setCreated(resultSet.getTimestamp("created"));
                 Admins admin = AdminDao.read(resultSet.getInt("admin_id"));
