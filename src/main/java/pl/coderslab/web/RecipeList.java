@@ -22,7 +22,7 @@ public class RecipeList extends HttpServlet {
         List <Recipe> recipes = RecipeDao.findAll();
 
         request.setAttribute("recipes", recipes);
-        getServletContext().getRequestDispatcher("/recipelist.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/app/recipe/list.jsp").forward(request, response);
 
     }
 }
