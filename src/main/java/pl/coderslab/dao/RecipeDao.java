@@ -19,7 +19,7 @@ public class RecipeDao {
     private static final String UPDATE_RECIPE_QUERY = "UPDATE recipe SET name = ? , ingredients = ?, description = ?, updated = NOW(), preparation_time = ?, preparation = ?, admin_id =? WHERE	id = ?";
     private static final String DELETE_RECIPE_QUERY = "DELETE FROM recipe where id = ?";
     private static final String FIND_ALL_RECIPES_QUERY = "SELECT * FROM recipe";
-
+    private static final String COUNT_RECIPE_QUERY = "SELECT COUNT(*) AS rowCount from recipe where admin_id = ?";
 
 
     public Recipe create(Recipe recipe) {
@@ -144,4 +144,22 @@ public class RecipeDao {
 
     }
 
+    public static int countRecipeById(Integer recipeId) {
+        int count = 0;
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(COUNT_RECIPE_QUERY)
+        ) {
+            statement.setInt(1, recipeId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    count = resultSet.getInt("rowCount");
+                    return count;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+
+    }
 }
