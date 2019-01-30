@@ -21,11 +21,12 @@ public class PlanDao {
     private static final String READ_PLAN_QUERY = "SELECT * from plan where id = ?";
     private static final String UPDATE_PLAN_QUERY = "UPDATE	plan SET name = ? , description = ? WHERE id = ?";
     private static final String SHOW_PLAN_NUMBERS = "select count(*) from plan where admin_id=?;";
-    private static final String SHOW_RECENT_PLAN = "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description\n" +
-            "FROM `recipe_plan`\n" +
-            "JOIN day_name on day_name.id=day_name_id\n" +
-            "JOIN recipe on recipe.id=recipe_id WHERE\n" +
-            "day_name_id =  (SELECT MAX(id) from plan WHERE admin_id = ?) ORDER by day_name.order, recipe_plan.order";
+
+
+
+    private static final String SHOW_RECENT_PLAN ="SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description\n" +
+            "FROM `recipe_plan`JOIN day_name on day_name.id=day_name_id JOIN recipe on recipe.id=recipe_id WHERE\n" +
+            "plan_id =  (SELECT MAX(id) from plan WHERE admin_id = ?) ORDER by day_name.order, recipe_plan.order";
 
     public Plan create(Plan plan) {
         try (Connection connection = DbUtil.getConnection();
@@ -151,29 +152,35 @@ public class PlanDao {
         return planNumbers;
     }
 
-    public static Plan showRecentPlan(int adminId) {
-        Plan plan = new Plan();
+
+    public static List<String> showRecentPlan(int adminId) {
+        List <String> list = new ArrayList<>();
+
         if (adminId == 0 || adminId < 0) {
             System.out.println("Niepoprawne id użytkownika");
         } else {
             try (Connection connection = DbUtil.getConnection();
-                 PreparedStatement statement = connection.prepareStatement(SHOW_PLAN_NUMBERS);) {
+
+
+                 PreparedStatement statement = connection.prepareStatement(SHOW_RECENT_PLAN);) {
                 statement.setInt(1, adminId);
                 ResultSet set = statement.executeQuery();
                 while (set.next()) {
-                    plan.setId(set.getInt(1));
-                    plan.setName(set.getString(2));
-                    plan.setDescription(set.getString(3));
-                    plan.setCreated(set.getTimestamp(4));
-                    Admins admin = AdminDao.read(set.getInt(5));
-                    plan.setAdmins(admin);
+                    list.add(set.getString(1));
+                    list.add(set.getString(2));
+                    list.add(set.getString(3));
+                    list.add(set.getString(4));
                 }
+
+
             } catch (SQLException e) {
                 System.out.println("Problem z bazą danych");
 
             }
 
+
         }
-        return plan;
+
+return list;
     }
 }
