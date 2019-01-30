@@ -21,19 +21,19 @@
         </a>
         <ul class="nav nounderline text-uppercase">
             <li class="nav-item ml-4">
-                <a class="nav-link color-header" href='<c:url value="/login">'>Logowanie</a>
+                <a class="nav-link color-header" href='<c:url value="/login"/>'>Logowanie</a>
             </li>
             <li class="nav-item ml-4">
-                <a class="nav-link color-header" href='<c:url value="/register">'>Rejestracja</a>
+                <a class="nav-link color-header" href='<c:url value="/register"/>'>Rejestracja</a>
             </li>
             <li class="nav-item ml-4">
-                <a class="nav-link" href='<c:url value="/about/">'>O aplikacji</a>
+                <a class="nav-link" href='<c:url value="/about/"/>'>O aplikacji</a>
             </li>
             <li class="nav-item ml-4">
-                <a class="nav-link disabled" href='<c:url value="/app/recipe/list/">'>Przepisy</a>
+                <a class="nav-link disabled" href='<c:url value="/app/recipe/list/"/>'>Przepisy</a>
             </li>
             <li class="nav-item ml-4">
-                <a class="nav-link disabled" href='<c:url value="/contact/">'>Kontakt</a>
+                <a class="nav-link disabled" href='<c:url value="/contact/"/>'>Kontakt</a>
             </li>
         </ul>
     </nav>
