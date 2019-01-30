@@ -144,12 +144,12 @@ public class RecipeDao {
 
     }
 
-    public static int countRecipeById(Integer recipeId) {
+    public static int countRecipeById(Integer adminId) {
         int count = 0;
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(COUNT_RECIPE_QUERY)
         ) {
-            statement.setInt(1, recipeId);
+            statement.setInt(1, adminId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     count = resultSet.getInt("rowCount");
