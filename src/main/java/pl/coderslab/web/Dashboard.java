@@ -29,5 +29,7 @@ public class Dashboard extends HttpServlet {
 
         request.setAttribute("recipenumber", numberOfRecipes);
         request.setAttribute("plannumber", numberOfPlans);
+
+        getServletContext().getRequestDispatcher("/app/dashboard.jsp").forward(request,response);
     }
 }
