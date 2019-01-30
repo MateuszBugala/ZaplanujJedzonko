@@ -35,7 +35,7 @@ public class AdminDao {
                     admin.setFirstName(resultSet.getString("first_name"));
                     admin.setLastName(resultSet.getString("last_name"));
                     admin.setEmail(resultSet.getString("email"));
-                    admin.setPassword(resultSet.getString("password"));
+                    admin.setPasswordNoEnryption(resultSet.getString("password"));
                     admin.setSuperadmin(resultSet.getInt("superadmin"));
                     admin.setEnable(resultSet.getBoolean("enable"));
                 }
@@ -62,7 +62,7 @@ public class AdminDao {
                 adminToAdd.setFirstName(resultSet.getString("first_name"));
                 adminToAdd.setLastName(resultSet.getString("last_name"));
                 adminToAdd.setEmail(resultSet.getString("email"));
-                adminToAdd.setPassword(resultSet.getString("password"));
+                adminToAdd.setPasswordNoEnryption(resultSet.getString("password"));
                 adminToAdd.setSuperadmin(resultSet.getInt("superadmin"));
                 adminToAdd.setEnable(resultSet.getBoolean("enable"));
                 adminList.add(adminToAdd);
