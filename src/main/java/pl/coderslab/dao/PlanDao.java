@@ -24,6 +24,7 @@ public class PlanDao {
     private static final String SHOW_RECENT_PLAN ="SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description\n" +
             "FROM `recipe_plan`JOIN day_name on day_name.id=day_name_id JOIN recipe on recipe.id=recipe_id WHERE\n" +
             "plan_id =  (SELECT MAX(id) from plan WHERE admin_id = ?) ORDER by day_name.order, recipe_plan.order";
+    private static final String DELETE_RECIPE_FROM_PLAN = "DELETE FROM recipe_plan where id=? and recipe_id=?";
 
     public Plan create(Plan plan) {
         try (Connection connection = DbUtil.getConnection();
@@ -169,5 +170,20 @@ public class PlanDao {
             }
         }
 return list;
+    }
+
+    public static void deleteRecipeFromRecipePlan (int recipePlanId,int recipeId){
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(DELETE_RECIPE_FROM_PLAN);) {
+            statement.setInt(1, recipePlanId);
+            statement.setInt(2, recipeId);
+
+            statement.executeUpdate();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
