@@ -75,7 +75,13 @@
                                 </select>
                             </div>
                         </div>
-                        <%--<input type="submit" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4" value="Zapisz">--%>
+
+                        <c:if test ="${not empty message}">
+                            <h3 style="color: red">${message}</h3>
+                        </c:if>
+                        <c:if test ="${not empty ok}">
+                            <h3 style="color: green">${ok}</h3>
+                        </c:if>
                     </form>
                 </div>
             </div>

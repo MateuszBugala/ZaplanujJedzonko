@@ -1,6 +1,6 @@
 package pl.coderslab.web;
 
-import pl.coderslab.dao.AdminDao;
+import com.mysql.jdbc.StringUtils;
 import pl.coderslab.dao.PlanDao;
 import pl.coderslab.dao.RecipeDao;
 import pl.coderslab.model.Admins;
@@ -25,16 +25,36 @@ import java.util.List;
 @WebServlet("/app/recipe/plan/add")
 public class RecipeAddToPlan extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
+        //mealOrder w bazie = int; należy sprawdzić poprawność wprowadzonych danych; pozostałe parametry mają prawidłowy typ
+        String mealOrder = request.getParameter("mealOrder");
+        if (StringUtils.isNullOrEmpty(mealOrder) || !StringUtils.isStrictlyNumeric(mealOrder)) {
+            request.setAttribute("message", "Numer posiłku jest nieprawidłowy, spróbuj jeszcze raz");
+            doGet(request, response);
+            return;
+        }
+        int mealOrderInt = Integer.parseInt(mealOrder);
+        int recipeId = Integer.parseInt(request.getParameter("chosenRecipe"));
+        String mealName = request.getParameter("mealName");
+        int dayNameId = Integer.parseInt(request.getParameter("chosenDay"));
+        int planId = Integer.parseInt(request.getParameter("chosenPlan"));
+
+        addRecipeToPlan(recipeId,mealName,mealOrderInt,dayNameId,planId);
+
+        request.setAttribute("ok", "Przepis dodano pomyślnie!");
+        doGet(request, response);
     }
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
         HttpSession sess = request.getSession();
+
         Admins authorizedUser = (Admins) sess.getAttribute("currentUser");
-//        int userId = authorizedUser.getId();
-        int userId = 1;
+        int userId = authorizedUser.getId();
 
 //        czytam plany dla zalogowanego usera i przesyłam je jako atrybut do jsp
         List<Plan> allPlans = PlanDao.findAll();
@@ -61,9 +81,9 @@ public class RecipeAddToPlan extends HttpServlet {
         request.setAttribute("daysList", daysList);
 
 
-
         getServletContext().getRequestDispatcher("/app/recipe/plan/app-schedules-meal-recipe.jsp").forward(request, response);
     }
+
 
     static List<String[]> getDays() {
         List<String[]> daysList = new ArrayList<>();
@@ -82,7 +102,25 @@ public class RecipeAddToPlan extends HttpServlet {
             e.printStackTrace();
         }
         return daysList;
+    }
 
+
+    private static void addRecipeToPlan(int recipeId, String mealName, int mealOrder, int dayNameId, int planId) {
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO recipe_plan(recipe_id,meal_name,`order`,day_name_id,plan_id) VALUES (?,?,?,?,?)")) {
+            preparedStatement.setInt(1, recipeId);
+            preparedStatement.setString(2, mealName);
+            preparedStatement.setInt(3, mealOrder);
+            preparedStatement.setInt(4, dayNameId);
+            preparedStatement.setInt(5, planId);
+            int result = preparedStatement.executeUpdate();
+
+            if (result != 1) {
+                throw new RuntimeException("Execute update returned " + result);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
