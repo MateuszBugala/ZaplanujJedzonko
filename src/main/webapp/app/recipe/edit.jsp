@@ -5,11 +5,8 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 
-<%@include file="../../header.jsp" %>
-
 <!DOCTYPE html>
 <html lang="en">
-
 
 <head>
 
@@ -17,8 +14,7 @@
 
 
 <body>
-
-
+<%@include file="/header.jsp" %>
 <sql:setDataSource var="db" driver="com.mysql.jdbc.Driver"
                    url="jdbc:mysql://localhost/scrumlab"
                    user="root" password="coderslab"/>
@@ -27,9 +23,8 @@
     SELECT * from recipe where id=${param.recipeId};
 </sql:query>
 
-<form action="/HomeServlet" method="post">
+<form action="/app/recipe/edit" method="post">
     <input type="hidden" name="recipeId" value="${recipeId}">
-
 
 
     <c:forEach var="row" items="${result.rows}">
@@ -59,8 +54,8 @@
     </c:forEach>
 </form>
 
-
+<%@include file="/footer.jsp" %>
 </body>
 </html>
 
-<%@include file="/footer.jsp" %>
+
