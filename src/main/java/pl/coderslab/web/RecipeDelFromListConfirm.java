@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/RecipeDelFromListConfirm")
+@WebServlet("/app/RecipeDelFromListConfirm")
 public class RecipeDelFromListConfirm extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -20,7 +20,7 @@ public class RecipeDelFromListConfirm extends HttpServlet {
         response.getWriter().append("<meta charset='utf-8'>");
         response.getWriter().append("<p> Czy na pewno chcesz usunąć przepis? <p>");
         response.getWriter().append("<br>");
-        response.getWriter().append("<a href='/RecipeDelFromList?confirm=ok'> OK </a> &nbsp; &nbsp;");
-        response.getWriter().append("<a href='/RecipeDelFromList?confirm=no'> Anuluj </a> &nbsp; &nbsp;");
+        response.getWriter().append("<a href='/app/RecipeDelFromList?confirm=ok'> OK </a> &nbsp; &nbsp;");
+        response.getWriter().append("<a href='/app/RecipeDelFromList?confirm=no'> Anuluj </a> &nbsp; &nbsp;");
     }
 }

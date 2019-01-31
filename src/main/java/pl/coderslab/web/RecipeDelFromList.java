@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/RecipeDelFromList")
+@WebServlet("/app/RecipeDelFromList")
 public class RecipeDelFromList extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -24,16 +24,19 @@ public class RecipeDelFromList extends HttpServlet {
 
         String confirm = request.getParameter("confirm");
 //        dane używane do testowania
-//        int recipeId = 3;
+//        int recipeId = 5;
 
         boolean checked = checkRecipePlan(recipeId);
 
         if ("ok".equals(confirm) && !checked) {
             RecipeDao.delete(recipeId);
-            //strona planDetails na chwilę obecną nie jest utworzona"
-            response.sendRedirect("/planDetails.jsp");
+            response.sendRedirect("/app/recipe/list.jsp");
+        } else if ("ok".equals(confirm) && checked){
+            String warning = "Nie można usunąć przepisu ponieważ jest dodany do planu";
+            request.setAttribute("warning", warning);
+            getServletContext().getRequestDispatcher("/app/recipe/list.jsp").forward(request,response);
         } else {
-            response.sendRedirect("/planDetails.jsp");
+            response.sendRedirect("/app/recipe/list.jsp");
         }
     }
 
