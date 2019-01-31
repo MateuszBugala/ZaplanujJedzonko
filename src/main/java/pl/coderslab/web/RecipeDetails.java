@@ -21,7 +21,7 @@ public class RecipeDetails extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String recipeId = request.getParameter("recipeid");
+        String recipeId = request.getParameter("recipeId");
 
         Recipe recipe = RecipeDao.read(Integer.parseInt(recipeId));
 

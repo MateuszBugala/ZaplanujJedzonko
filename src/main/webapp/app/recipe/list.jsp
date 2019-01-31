@@ -12,7 +12,7 @@
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
                 <div class="row border-bottom border-3 p-1 m-1">
                     <div class="col noPadding"><h3 class="color-header text-uppercase">Lista Przepisów</h3></div>
-                    <div class="col noPadding d-flex justify-content-end mb-2"><a href='<c:url value="/app/recipe/add.jsp"/>' class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Dodaj przepis</a></div>
+                    <div class="col noPadding d-flex justify-content-end mb-2"><a href='<c:url value="/app/recipe/add"/>' class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Dodaj przepis</a></div>
                 </div>
                 <table class="table border-bottom schedules-content">
                     <thead>
@@ -36,9 +36,19 @@
                                     ${recipes.get(number).getDescription()}
                             </td>
                             <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
-                                <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                                <a href='<c:url value="/app/recipe/details.jsp"/>' class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                                <a href='<c:url value="/app/recipe/edit.jsp"/>' class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
+
+                                <a href='<c:url value="app/RecipeDelFromList">
+                                <c:param name = "recipeId" value = "${recipes.get(Number).getId()}"/>
+                                </c:url>' class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+
+                                <a href='<c:url value="/app/recipe/details">
+                                <c:param name = "recipeId" value = "${recipes.get(Number).getId()}"/>
+                                </c:url>' class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+
+                                <a href='<c:url value="/app/recipe/edit">
+                                <c:param name = "recipeId" value = "${recipes.get(Number).getId()}"/>
+                                </c:url>' class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
+
                             </td>
                         </tr>
 
