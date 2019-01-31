@@ -21,7 +21,7 @@ public class RecipeDelFromPlan extends HttpServlet {
 
         PlanDao.deleteRecipeFromPlan(planId, recipeId);
 //ta stronka chyba jeszcze nie działa
-        response.sendRedirect("http://localhost:8080/app/plan/details");
+        response.sendRedirect("http://localhost:8080/app/plan/details.jsp");
 
 
     }
