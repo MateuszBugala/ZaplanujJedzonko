@@ -26,7 +26,7 @@ public class PlanEdit extends HttpServlet {
 
         PlanDao.update(editedPlan);
 
-        response.sendRedirect("/app/plan/list");
+        response.sendRedirect("/app/plan/list/");
     }
 
 
