@@ -25,7 +25,7 @@ public class Login extends HttpServlet {
 
         if (authorizedUser != null) {
             sess.setAttribute("currentUser", authorizedUser);
-            response.sendRedirect("/app/dashboard.jsp");
+            response.sendRedirect("/app/dashboard/");
             return;
         }
 
