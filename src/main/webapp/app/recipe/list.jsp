@@ -38,15 +38,15 @@
                             <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
 
                                 <a href='<c:url value="app/RecipeDelFromList">
-                                <c:param name = "recipeId" value = "${recipes.get(Number).getId()}"/>
+                                <c:param name = "recipeId" value = "${recipes.get(number).getId()}"/>
                                 </c:url>' class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
 
                                 <a href='<c:url value="/app/recipe/details">
-                                <c:param name = "recipeId" value = "${recipes.get(Number).getId()}"/>
+                                <c:param name = "recipeId" value = "${recipes.get(number).getId()}"/>
                                 </c:url>' class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
 
                                 <a href='<c:url value="/app/recipe/edit">
-                                <c:param name = "recipeId" value = "${recipes.get(Number).getId()}"/>
+                                <c:param name = "recipeId" value = "${recipes.get(number).getId()}"/>
                                 </c:url>' class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
 
                             </td>
