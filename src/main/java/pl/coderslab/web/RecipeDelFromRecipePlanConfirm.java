@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/app/RecipeDelConfirmation")
-public class RecipeDelConfirmation extends HttpServlet {
+@WebServlet("/app/RecipeDelFromRecipePlanConfirm")
+public class RecipeDelFromRecipePlanConfirm extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
