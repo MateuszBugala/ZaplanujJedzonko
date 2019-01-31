@@ -25,12 +25,12 @@ public class PlanDao {
     private static final String SHOW_PLAN_NUMBERS = "select count(*) from plan where admin_id=?;";
 
 
-    private static final String SHOW_RECENT_PLAN = "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description\n" +
+    private static final String SHOW_RECENT_PLAN = "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description, plan.name as plan_name, recipe.id as recipe_id\n" +
             "FROM `recipe_plan`JOIN day_name on day_name.id=day_name_id JOIN recipe on recipe.id=recipe_id WHERE\n" +
             "plan_id =  (SELECT MAX(id) from plan WHERE admin_id = ?) ORDER by day_name.order, recipe_plan.order";
     private static final String DELETE_RECIPE_FROM_PLAN = "DELETE FROM recipe_plan where id=? and recipe_id=?";
 
-    private static final String FIND_RECEIPES_BY_PLAN_ID = "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description\n" +
+    private static final String FIND_RECIPES_BY_PLAN_ID = "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description\n" +
             "FROM `recipe_plan`\n" +
             "JOIN day_name on day_name.id=day_name_id\n" +
             "JOIN recipe on recipe.id=recipe_id WHERE plan_id=? \n" +
@@ -179,6 +179,8 @@ public class PlanDao {
                     plan.setMealName(set.getString(2));
                     plan.setRecipeName(set.getString(3));
                     plan.setRecipeDescription(set.getString(4));
+                    plan.setPlanName(set.getString(5));
+                    plan.setRecipeId(set.getInt(6));
 
                     list.add(plan);
                 }
@@ -219,7 +221,7 @@ public class PlanDao {
         } else {
             try (Connection connection = DbUtil.getConnection();
 
-                 PreparedStatement statement = connection.prepareStatement(FIND_RECEIPES_BY_PLAN_ID)) {
+                 PreparedStatement statement = connection.prepareStatement(FIND_RECIPES_BY_PLAN_ID)) {
                 statement.setInt(1, planId);
                 ResultSet set = statement.executeQuery();
                 while (set.next()) {
