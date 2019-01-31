@@ -20,7 +20,7 @@ public class RecipeDao {
     private static final String DELETE_RECIPE_QUERY = "DELETE FROM recipe where id = ?";
     private static final String FIND_ALL_RECIPES_QUERY = "SELECT * FROM recipe";
     private static final String COUNT_RECIPE_QUERY = "SELECT COUNT(*) AS rowCount from recipe where admin_id = ?";
-
+    private static final String SELECT_RECIPEID_FROM_PLAN = "select distinct(recipe_id) from recipe_plan;";
 
     public static Recipe create(Recipe recipe) {
         try (Connection connection = DbUtil.getConnection();
@@ -144,12 +144,12 @@ public class RecipeDao {
 
     }
 
-    public static int countRecipeById(Integer recipeId) {
+    public static int countRecipeById(Integer adminId) {
         int count = 0;
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(COUNT_RECIPE_QUERY)
         ) {
-            statement.setInt(1, recipeId);
+            statement.setInt(1, adminId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     count = resultSet.getInt("rowCount");
@@ -162,4 +162,21 @@ public class RecipeDao {
         return count;
 
     }
-}
+
+    public static List<Integer> selectRecipeIdFromPlan() {
+        List<Integer> list = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SELECT_RECIPEID_FROM_PLAN);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                list.add(resultSet.getInt(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+
+    }
+
+           }

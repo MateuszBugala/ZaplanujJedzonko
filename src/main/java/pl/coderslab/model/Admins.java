@@ -56,6 +56,10 @@ public class Admins {
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
+    public void setPasswordNoEnryption(String password) {
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
     }
