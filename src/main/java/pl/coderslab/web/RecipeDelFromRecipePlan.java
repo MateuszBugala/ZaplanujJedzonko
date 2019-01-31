@@ -20,7 +20,7 @@ public class RecipeDelFromRecipePlan extends HttpServlet {
 
         String confirm = request.getParameter("confirm");
 //        dane używane do testowania
-//        int recipeId =8;
+//        int recipeId =9;
 //        int recipePlanId =1;
 
         if ("ok".equals(confirm)){
