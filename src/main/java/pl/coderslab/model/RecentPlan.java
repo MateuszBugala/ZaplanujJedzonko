@@ -6,12 +6,17 @@ public class RecentPlan {
     private String mealName;
     private String recipeName;
     private String recipeDescription;
+    private String planName;
+    private int recipeId;
 
-    public RecentPlan(String dayName, String mealName, String recipeName, String recipeDescription) {
+    public RecentPlan(String dayName, String mealName, String recipeName, String recipeDescription, String planName, int recipeId) {
         this.dayName = dayName;
         this.mealName = mealName;
         this.recipeName = recipeName;
         this.recipeDescription = recipeDescription;
+        this.planName = planName;
+        this.recipeId = recipeId;
+
     }
 
     public RecentPlan(){};
@@ -48,6 +53,22 @@ public class RecentPlan {
         this.recipeDescription = recipeDescription;
     }
 
+    public String getPlanName() {
+        return planName;
+    }
+
+    public void setPlanName(String planName) {
+        this.planName = planName;
+    }
+
+    public int getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
+    }
+
     @Override
     public String toString() {
         return "RecentPlan{" +
@@ -55,6 +76,8 @@ public class RecentPlan {
                 ", mealName='" + mealName + '\'' +
                 ", recipeName='" + recipeName + '\'' +
                 ", recipeDescription='" + recipeDescription + '\'' +
+                ", planName='" + planName + '\'' +
+                ", recipeId=" + recipeId +
                 '}';
     }
 }

@@ -5,6 +5,7 @@ import pl.coderslab.exception.NotFoundException;
 import pl.coderslab.model.Admins;
 import pl.coderslab.model.Plan;
 import pl.coderslab.model.RecentPlan;
+import pl.coderslab.model.Recipe;
 import pl.coderslab.utils.DbUtil;
 
 import java.sql.*;
@@ -24,10 +25,16 @@ public class PlanDao {
     private static final String SHOW_PLAN_NUMBERS = "select count(*) from plan where admin_id=?;";
 
 
-    private static final String SHOW_RECENT_PLAN = "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description\n" +
+    private static final String SHOW_RECENT_PLAN = "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description, plan.name as plan_name, recipe.id as recipe_id\n" +
             "FROM `recipe_plan`JOIN day_name on day_name.id=day_name_id JOIN recipe on recipe.id=recipe_id WHERE\n" +
             "plan_id =  (SELECT MAX(id) from plan WHERE admin_id = ?) ORDER by day_name.order, recipe_plan.order";
     private static final String DELETE_RECIPE_FROM_PLAN = "DELETE FROM recipe_plan where plan_id=? and recipe_id=?";
+
+    private static final String FIND_RECIPES_BY_PLAN_ID = "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description\n" +
+            "FROM `recipe_plan`\n" +
+            "JOIN day_name on day_name.id=day_name_id\n" +
+            "JOIN recipe on recipe.id=recipe_id WHERE plan_id=? \n" +
+            "ORDER by day_name.order, recipe_plan.order";
 
     public static Plan create(Plan plan) {
         try (Connection connection = DbUtil.getConnection();
@@ -60,7 +67,7 @@ public class PlanDao {
     public static Plan readById(Integer planId) {
         Plan plan = new Plan();
         try (Connection connection = DbUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(READ_PLAN_QUERY);
+             PreparedStatement statement = connection.prepareStatement(READ_PLAN_QUERY)
         ) {
             statement.setInt(1, planId);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -82,7 +89,7 @@ public class PlanDao {
 
     public static void delete(Integer planId) {
         try (Connection connection = DbUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(DELETE_PLAN_QUERY);) {
+             PreparedStatement statement = connection.prepareStatement(DELETE_PLAN_QUERY)) {
             statement.setInt(1, planId);
             statement.executeUpdate();
 
@@ -97,7 +104,7 @@ public class PlanDao {
 
     public static void update(Plan plan) {
         try (Connection connection = DbUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(UPDATE_PLAN_QUERY);) {
+             PreparedStatement statement = connection.prepareStatement(UPDATE_PLAN_QUERY)) {
             statement.setInt(3, plan.getId());
             statement.setString(2, plan.getDescription());
             statement.setString(1, plan.getName());
@@ -141,7 +148,7 @@ public class PlanDao {
             System.out.println("Niepoprawne id użytkownika");
         } else {
             try (Connection connection = DbUtil.getConnection();
-                 PreparedStatement statement = connection.prepareStatement(SHOW_PLAN_NUMBERS);) {
+                 PreparedStatement statement = connection.prepareStatement(SHOW_PLAN_NUMBERS)) {
                 statement.setInt(1, adminId);
                 ResultSet set = statement.executeQuery();
                 while (set.next()) {
@@ -163,8 +170,7 @@ public class PlanDao {
         } else {
             try (Connection connection = DbUtil.getConnection();
 
-
-                 PreparedStatement statement = connection.prepareStatement(SHOW_RECENT_PLAN);) {
+                 PreparedStatement statement = connection.prepareStatement(SHOW_RECENT_PLAN)) {
                 statement.setInt(1, adminId);
                 ResultSet set = statement.executeQuery();
                 while (set.next()) {
@@ -173,6 +179,8 @@ public class PlanDao {
                     plan.setMealName(set.getString(2));
                     plan.setRecipeName(set.getString(3));
                     plan.setRecipeDescription(set.getString(4));
+                    plan.setPlanName(set.getString(5));
+                    plan.setRecipeId(set.getInt(6));
 
                     list.add(plan);
                 }
@@ -191,8 +199,11 @@ public class PlanDao {
 
     public static void deleteRecipeFromPlan(int planId, int recipeId) {
         try (Connection connection = DbUtil.getConnection();
+
              PreparedStatement statement = connection.prepareStatement(DELETE_RECIPE_FROM_PLAN);) {
             statement.setInt(1, planId);
+
+
             statement.setInt(2, recipeId);
 
             statement.executeUpdate();
@@ -202,5 +213,34 @@ public class PlanDao {
             e.printStackTrace();
         }
 
+    }
+
+    public static List<RecentPlan> findRecipesByPlanId(Integer planId) {
+
+        List<RecentPlan> list = new ArrayList<>();
+
+        if (planId == 0 || planId < 0) {
+            System.out.println("Niepoprawne id planu");
+        } else {
+            try (Connection connection = DbUtil.getConnection();
+
+                 PreparedStatement statement = connection.prepareStatement(FIND_RECIPES_BY_PLAN_ID)) {
+                statement.setInt(1, planId);
+                ResultSet set = statement.executeQuery();
+                while (set.next()) {
+                    RecentPlan plan = new RecentPlan();
+                    plan.setDayName(set.getString(1));
+                    plan.setMealName(set.getString(2));
+                    plan.setRecipeName(set.getString(3));
+                    plan.setRecipeDescription(set.getString(4));
+
+                    list.add(plan);
+                }
+
+            } catch (SQLException e) {
+                System.out.println("Problem z bazą danych");
+
+            }
+        } return list;
     }
 }

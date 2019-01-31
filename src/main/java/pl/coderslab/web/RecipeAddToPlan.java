@@ -81,7 +81,7 @@ public class RecipeAddToPlan extends HttpServlet {
         request.setAttribute("daysList", daysList);
 
 
-        getServletContext().getRequestDispatcher("/app/recipe/plan/app-schedules-meal-recipe.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/app/recipe/plan/add.jsp").forward(request, response);
     }
 
 
