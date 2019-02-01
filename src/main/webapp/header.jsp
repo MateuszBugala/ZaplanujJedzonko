@@ -30,7 +30,7 @@
                 <a class="nav-link" href='<c:url value="/about/"/>'>O aplikacji</a>
             </li>
             <li class="nav-item ml-4">
-                <a class="nav-link disabled" href='<c:url value="/app/recipe/list/"/>'>Przepisy</a>
+                <a class="nav-link disabled" href='<c:url value="/recipelistpublic/"/>'>Przepisy</a>
             </li>
             <li class="nav-item ml-4">
                 <a class="nav-link disabled" href='<c:url value="/contact/"/>'>Kontakt</a>
