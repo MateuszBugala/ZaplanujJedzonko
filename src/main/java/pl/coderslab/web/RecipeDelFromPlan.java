@@ -14,14 +14,13 @@ public class RecipeDelFromPlan extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //parametry trzena podać w URL servletu RecipeDElFromPlan
-        int recipeId = Integer.parseInt(request.getParameter("recipeId"));
-        int planId = Integer.parseInt(request.getParameter("planId"));
+
+        int recipePlanId = Integer.parseInt(request.getParameter("recipePlanId"));
 
 
-        PlanDao.deleteRecipeFromPlan(planId, recipeId);
-//ta stronka chyba jeszcze nie działa
-        response.sendRedirect("http://localhost:8080/app/plan/details.jsp");
+        PlanDao.deleteRecipeFromPlan(recipePlanId);
+//tutaj problem z odesłaniem do serwletu - dlatego podana strona jsp
+        response.sendRedirect("/app/plan/details.jsp");
 
 
     }
