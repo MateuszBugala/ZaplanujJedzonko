@@ -60,7 +60,7 @@
                     <td class="col-2">${rec.mealName}</td>
                     <td class="col-7">${rec.recipeName}</td>
                     <td class="col-1 center">
-                        <a href="/app/RecipeDelFromPlanConfirm?recipePlanId=${rec.recipePlanId}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                        <a href="/app/RecipeDelFromPlanConfirm?recipePlanId=${rec.recipePlanId}&planId=${param.planId}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
                     </td>
                     <td class="col-2 center">
                         <a href="#" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>

@@ -14,13 +14,12 @@ public class RecipeDelFromPlan extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String planId = request.getParameter("planId");
         int recipePlanId = Integer.parseInt(request.getParameter("recipePlanId"));
-
 
         PlanDao.deleteRecipeFromPlan(recipePlanId);
 
-        response.sendRedirect("/app/plan/list/");
+        response.sendRedirect("/app/plan/details?planId="+planId);
 
     }
 }

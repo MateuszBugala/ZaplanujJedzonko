@@ -14,7 +14,7 @@ public class RecipeDelFromPlanConfirm extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String planId = request.getParameter("planId");
         String recipePlanId = request.getParameter("recipePlanId");
 
 
@@ -24,8 +24,8 @@ public class RecipeDelFromPlanConfirm extends HttpServlet {
         response.getWriter().append("<meta charset='utf-8'>");
         response.getWriter().append("<p> Czy na pewno chcesz usunąć przepis z planu? <p>");
         response.getWriter().append("<br>");
-        response.getWriter().append("<a href='/app/recipe/plan/delete?recipePlanId="+recipePlanId+"'> OK </a> &nbsp; &nbsp;");
-        response.getWriter().append("<a href='/app/plan/list/'> Anuluj </a> &nbsp; &nbsp;");
+        response.getWriter().append("<a href='/app/recipe/plan/delete?recipePlanId="+recipePlanId+"&planId="+planId+"'> OK </a> &nbsp; &nbsp;");
+        response.getWriter().append("<a href='/app/plan/details?planId="+planId+"'> Anuluj </a> &nbsp; &nbsp;");
 
 
     }
