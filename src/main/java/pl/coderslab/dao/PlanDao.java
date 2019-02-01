@@ -29,7 +29,7 @@ public class PlanDao {
     private static final String SHOW_RECENT_PLAN = "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description, plan.name as plan_name, recipe.id as recipe_id\n" +
             "FROM `recipe_plan`JOIN day_name on day_name.id=day_name_id JOIN recipe on recipe.id=recipe_id WHERE\n" +
             "plan_id =  (SELECT MAX(id) from plan WHERE admin_id = ?) ORDER by day_name.order, recipe_plan.order";
-    private static final String DELETE_RECIPE_FROM_PLAN = "DELETE FROM recipe_plan where plan_id=? and recipe_id=?";
+    private static final String DELETE_RECIPE_FROM_PLAN = "DELETE FROM recipe_plan where id=?";
 
     private static final String FIND_RECIPES_BY_PLAN_ID = "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description\n" +
             "FROM `recipe_plan`\n" +
@@ -226,15 +226,11 @@ public class PlanDao {
         return list;
     }
 
-    public static void deleteRecipeFromPlan(int planId, int recipeId) {
+    public static void deleteRecipeFromPlan(int recipePlanId) {
         try (Connection connection = DbUtil.getConnection();
 
              PreparedStatement statement = connection.prepareStatement(DELETE_RECIPE_FROM_PLAN);) {
-            statement.setInt(1, planId);
-
-
-            statement.setInt(2, recipeId);
-
+            statement.setInt(1, recipePlanId);
             statement.executeUpdate();
 
 
