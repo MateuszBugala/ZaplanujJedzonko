@@ -33,14 +33,18 @@ public class Dashboard extends HttpServlet {
 
         int numberOfRecipes = RecipeDao.countRecipeById(admin.getId());
         int numberOfPlans = PlanDao.showPlanNumbers(admin.getId());
-
-        List<RecentPlan> recentPlan = PlanDao.showRecentPlan(admin.getId());
-        List<String> days = showUniqueDays(admin.getId());
-
         request.setAttribute("recipeNumber", numberOfRecipes);
         request.setAttribute("planNumber", numberOfPlans);
-        request.setAttribute("recentPlan", recentPlan);
-        request.setAttribute("days", days);
+
+        List<RecentPlan> recentPlan = PlanDao.showRecentPlan(admin.getId());
+        if (recentPlan.size() != 0) {
+            List<String> days = showUniqueDays(admin.getId());
+
+            request.setAttribute("recentPlan", recentPlan);
+            request.setAttribute("days", days);
+        } else {
+            request.setAttribute("emptyPlan","emptyPlan");
+        }
 
         getServletContext().getRequestDispatcher("/app/dashboard.jsp").forward(request, response);
     }

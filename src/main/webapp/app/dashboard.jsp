@@ -49,7 +49,13 @@
 
             <div class="m-4 p-4 border-dashed">
                 <h2 class="dashboard-content-title">
-                    <span>Ostatnio dodany plan: &nbsp;&nbsp;</span>${recentPlan.get(0).getPlanName()}
+                    <c:if test ="${not empty emptyPlan}">
+                        <span>Dodaj jakieś przepisy do swoich planów</span>
+                    </c:if>
+                    <c:if test ="${not empty recentPlan}">
+                        <span>Ostatnio dodany plan: &nbsp;&nbsp;</span>${recentPlan.get(0).getPlanName()}
+                    </c:if>
+
                 </h2>
 
                 <table class="table">
