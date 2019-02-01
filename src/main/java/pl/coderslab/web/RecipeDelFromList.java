@@ -18,25 +18,22 @@ public class RecipeDelFromList extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //na chwilę obecną nie mamy jeszcze formularza gdzie można byłoby wskazać przepis do usunięcia,więc nie możemy odebrac poniższych parametrów.
+
         int recipeId = Integer.parseInt(request.getParameter("recipeId"));
 
 
-        String confirm = request.getParameter("confirm");
-//        dane używane do testowania
-//        int recipeId = 5;
-
         boolean checked = checkRecipePlan(recipeId);
 
-        if ("ok".equals(confirm) && !checked) {
+        if (!checked) {
             RecipeDao.delete(recipeId);
-            response.sendRedirect("/app/recipe/list.jsp");
-        } else if ("ok".equals(confirm) && checked){
+            String warning = "Przepis został usunięty";
+            request.setAttribute("warning", warning);
+            getServletContext().getRequestDispatcher("/app/recipe/list/").forward(request, response);
+        } else {
             String warning = "Nie można usunąć przepisu ponieważ jest dodany do planu";
             request.setAttribute("warning", warning);
-            getServletContext().getRequestDispatcher("/app/recipe/list.jsp").forward(request,response);
-        } else {
-            response.sendRedirect("/app/recipe/list.jsp");
+            getServletContext().getRequestDispatcher("/app/recipe/list/").forward(request, response);
+
         }
     }
 
