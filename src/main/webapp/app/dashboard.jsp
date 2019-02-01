@@ -34,11 +34,11 @@
                 <div class="dashboard-alerts">
                     <div class="alert-item alert-info">
                         <i class="fas icon-circle fa-info-circle"></i>
-                        <span class="font-weight-bold">Liczba przepisów: ${recipenumber}</span>
+                        <span class="font-weight-bold">Liczba przepisów: ${recipeNumber}</span>
                     </div>
                     <div class="alert-item alert-light">
                         <i class="far icon-calendar fa-calendar-alt"></i>
-                        <span class="font-weight-bold">Liczba planów: ${plannumber}</span>
+                        <span class="font-weight-bold">Liczba planów: ${planNumber}</span>
                     </div>
                 </div>
             </div>

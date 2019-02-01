@@ -31,7 +31,7 @@ public class PlanDetails extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //pobranie id planu planu
-        String planId = request.getParameter("planid");
+        String planId = request.getParameter("planId");
         int id = Integer.parseInt(planId);
 
         //pobranie danych planu
