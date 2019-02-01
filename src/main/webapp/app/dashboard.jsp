@@ -44,7 +44,7 @@
             </div>
 
             <c:if test="${not empty param.emptyplanorrecipe}">
-                <span style="color: red">Aby dodać przepis do planu musisz mieć min. 1 przepis i 1 plan !</span>
+                <h4 style="color: red; text-align: -moz-center">Aby dodać przepis do planu musisz mieć min. 1 przepis i 1 plan !</h4>
             </c:if>
 
             <div class="m-4 p-4 border-dashed">
@@ -78,10 +78,11 @@
 
                                 <tr class="d-flex">
                                     <td class="col-2">${meal.mealName}</td>
-                                    <td class="col-8">${meal.recipeName}</td>
-                                    <td class="col-2">
-                                        <button type="button" class="btn btn-primary rounded-0">Szczegóły</button>
-                                    </td>
+                                    <td class="col-5">${meal.recipeName}</td>
+                                    <td class="col-5">${meal.recipeDescription}</td>
+                                    <%--<td class="col-2">--%>
+                                        <%--<button type="button" class="btn btn-primary rounded-0">Szczegóły</button>--%>
+                                    <%--</td>--%>
                                 </tr>
 
                             </c:if>
