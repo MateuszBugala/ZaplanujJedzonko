@@ -20,6 +20,7 @@ public class PlanDao {
     private static final String CREATE_PLAN_QUERY = "INSERT INTO plan (name, description,created,admin_id) VALUES (?,?,NOW(),?)";
     private static final String DELETE_PLAN_QUERY = "DELETE FROM plan where id = ?";
     private static final String FIND_ALL_PLANS_QUERY = "SELECT * FROM plan";
+    private static final String FIND_BY_ADMIN_QUERY = "SELECT * from plan where admin_id = ?";
     private static final String READ_PLAN_QUERY = "SELECT * from plan where id = ?";
     private static final String UPDATE_PLAN_QUERY = "UPDATE	plan SET name = ? , description = ? WHERE id = ?";
     private static final String SHOW_PLAN_NUMBERS = "select count(*) from plan where admin_id=?;";
@@ -123,6 +124,34 @@ public class PlanDao {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_ALL_PLANS_QUERY);
              ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Plan planToAdd = new Plan();
+                planToAdd.setId(resultSet.getInt("id"));
+                planToAdd.setName(resultSet.getString("name"));
+                planToAdd.setDescription(resultSet.getString("description"));
+                planToAdd.setCreated(resultSet.getTimestamp("created"));
+                Admins admin = AdminDao.read(resultSet.getInt("admin_id"));
+                planToAdd.setAdmins(admin);
+                planList.add(planToAdd);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return planList;
+
+    }
+
+    public static List<Plan> findByAdminId(Integer adminId) {
+
+        List<Plan> planList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_BY_ADMIN_QUERY);
+             ) {
+
+            statement.setInt(1, adminId);
+            ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 Plan planToAdd = new Plan();

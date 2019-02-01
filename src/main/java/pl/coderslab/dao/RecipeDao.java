@@ -19,6 +19,7 @@ public class RecipeDao {
     private static final String UPDATE_RECIPE_QUERY = "UPDATE recipe SET name = ? , ingredients = ?, description = ?, updated = NOW(), preparation_time = ?, preparation = ?, admin_id =? WHERE	id = ?";
     private static final String DELETE_RECIPE_QUERY = "DELETE FROM recipe where id = ?";
     private static final String FIND_ALL_RECIPES_QUERY = "SELECT * FROM recipe";
+    private static final String FIND_BY_ADMIN_QUERY = "SELECT * from recipe where admin_id = ?";
     private static final String COUNT_RECIPE_QUERY = "SELECT COUNT(*) AS rowCount from recipe where admin_id = ?";
     private static final String SELECT_RECIPEID_FROM_PLAN = "select distinct(recipe_id) from recipe_plan;";
 
@@ -120,6 +121,38 @@ public class RecipeDao {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_ALL_RECIPES_QUERY);
              ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Recipe recipe = new Recipe();
+                recipe.setId(resultSet.getInt("id"));
+                recipe.setName(resultSet.getString("name"));
+                recipe.setIngredients(resultSet.getString("ingredients"));
+                recipe.setDescription(resultSet.getString("description"));
+                recipe.setCreated(resultSet.getTimestamp("created"));
+                recipe.setUpdated(resultSet.getTimestamp("updated"));
+                recipe.setPreparationTime(resultSet.getInt("preparation_time"));
+                recipe.setPreparation(resultSet.getString("preparation"));
+                Admins admins = AdminDao.read(resultSet.getInt("admin_id"));
+                recipe.setAdmins(admins);
+
+                recipeList.add(recipe);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return recipeList;
+
+    }
+
+    public static List<Recipe> findByAdminId(Integer adminId) {
+        List<Recipe> recipeList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_BY_ADMIN_QUERY);
+             ) {
+
+            statement.setInt(1, adminId);
+            ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 Recipe recipe = new Recipe();

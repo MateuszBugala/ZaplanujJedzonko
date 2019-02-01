@@ -31,6 +31,7 @@
                         </thead>
                         <tbody class="text-color-lighter">
 
+                        <c:if test="${plans.size()>0}">
                         <c:forEach begin="0" step="1" end="${plans.size()-1}" var="number">
 
                             <tr class="d-flex">
@@ -57,6 +58,7 @@
                             </tr>
 
                         </c:forEach>
+                        </c:if>
 
                         </tbody>
                     </table>
