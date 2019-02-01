@@ -25,6 +25,7 @@ public class Login extends HttpServlet {
 
         if (authorizedUser != null) {
             sess.setAttribute("currentUser", authorizedUser);
+            sess.setAttribute("userName", authorizedUser.getFirstName()+" "+authorizedUser.getLastName());
             response.sendRedirect("/app/dashboard/");
             return;
         }
