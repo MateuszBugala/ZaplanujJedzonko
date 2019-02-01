@@ -64,6 +64,11 @@ public class RecipeAddToPlan extends HttpServlet {
                 userPlans.add(plan);
             }
         }
+        //użykownik nie będzie mógł użyć tego dodawnia jeśli nie ma jeszcze planu
+        if (userPlans.size() == 0){
+            response.sendRedirect("/app/dashboard/?emptyplanorrecipe=true");
+            return;
+        }
         request.setAttribute("userPlans", userPlans);
 
 //        czytam przepisy dla zalogowanego usera i przesyłam je jako atrybut do jsp
@@ -73,6 +78,11 @@ public class RecipeAddToPlan extends HttpServlet {
             if (recipe.getAdmins().getId() == userId) {
                 userRecipes.add(recipe);
             }
+        }
+        //użykownik nie będzie mógł użyć tego dodawnia jeśli nie ma jeszcze przepisu
+        if (userRecipes.size() == 0){
+            response.sendRedirect("/app/dashboard/?emptyplanorrecipe=true");
+            return;
         }
         request.setAttribute("userRecipes", userRecipes);
 

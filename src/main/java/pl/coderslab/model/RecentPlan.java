@@ -7,15 +7,15 @@ public class RecentPlan {
     private String recipeName;
     private String recipeDescription;
     private String planName;
-    private int recipeId;
+    private int recipePlanId;
 
-    public RecentPlan(String dayName, String mealName, String recipeName, String recipeDescription, String planName, int recipeId) {
+    public RecentPlan(String dayName, String mealName, String recipeName, String recipeDescription, String planName, int recipePlanId) {
         this.dayName = dayName;
         this.mealName = mealName;
         this.recipeName = recipeName;
         this.recipeDescription = recipeDescription;
         this.planName = planName;
-        this.recipeId = recipeId;
+        this.recipePlanId = recipePlanId;
 
     }
 
@@ -61,12 +61,12 @@ public class RecentPlan {
         this.planName = planName;
     }
 
-    public int getRecipeId() {
-        return recipeId;
+    public int getRecipePlanId() {
+        return recipePlanId;
     }
 
-    public void setRecipeId(int recipeId) {
-        this.recipeId = recipeId;
+    public void setRecipePlanId(int recipePlanId) {
+        this.recipePlanId = recipePlanId;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class RecentPlan {
                 ", recipeName='" + recipeName + '\'' +
                 ", recipeDescription='" + recipeDescription + '\'' +
                 ", planName='" + planName + '\'' +
-                ", recipeId=" + recipeId +
+                ", recipeId=" + recipePlanId +
                 '}';
     }
 }
