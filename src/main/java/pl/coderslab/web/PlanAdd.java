@@ -16,6 +16,9 @@ import java.io.IOException;
 public class PlanAdd extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
         String name = request.getParameter("name");
         String description = request.getParameter("description");
 
@@ -33,6 +36,9 @@ public class PlanAdd extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
         getServletContext().getRequestDispatcher("/app/plan/add.jsp").forward(request, response);
     }

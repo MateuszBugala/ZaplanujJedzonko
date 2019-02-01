@@ -16,6 +16,9 @@ import java.io.IOException;
 public class RecipeAdd extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         int preparationTime = Integer.parseInt(request.getParameter("preparation_time"));
@@ -36,6 +39,9 @@ public class RecipeAdd extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
         getServletContext().getRequestDispatcher("/app/recipe/add.jsp").forward(request, response);
     }
