@@ -24,8 +24,8 @@ public class RecipeDelFromPlanConfirm extends HttpServlet {
         response.getWriter().append("<meta charset='utf-8'>");
         response.getWriter().append("<p> Czy na pewno chcesz usunąć przepis z planu? <p>");
         response.getWriter().append("<br>");
-        response.getWriter().append("<a href='/app/recipe/plan/delete?recipePlanId="+recipePlanId+"'> OK </a> &nbsp; &nbsp;");
-        response.getWriter().append("<a href='/app/plan/details/'> Anuluj </a> &nbsp; &nbsp;");
+        response.getWriter().append("<a href='/app/RecipeDelFromPlan?recipePlanId="+recipePlanId+"'> OK </a> &nbsp; &nbsp;");
+        response.getWriter().append("<a href='/app/plan/list/'> Anuluj </a> &nbsp; &nbsp;");
 
 
     }

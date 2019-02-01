@@ -38,7 +38,7 @@
                             </td>
                             <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
 
-                                <a href='<c:url value="app/RecipeDelFromList">
+                                <a href='<c:url value="/app/RecipeDelFromListConfirm">
                                 <c:param name = "recipeId" value = "${recipes.get(number).getId()}"/>
                                 </c:url>' class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
 

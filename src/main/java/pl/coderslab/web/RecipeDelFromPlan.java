@@ -19,9 +19,8 @@ public class RecipeDelFromPlan extends HttpServlet {
 
 
         PlanDao.deleteRecipeFromPlan(recipePlanId);
-//tutaj problem z odesłaniem do serwletu - dlatego podana strona jsp
-        response.sendRedirect("/app/plan/details.jsp");
-
+        //tutaj problem z odesłaniem do serwletu - dlatego podana strona jsp
+        response.sendRedirect("/app/plan/list");
 
     }
 }
