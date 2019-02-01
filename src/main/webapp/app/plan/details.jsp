@@ -36,6 +36,11 @@
                 </div>
             </div>
 
+            <c:if test ="${not empty param.deleted}">
+                <h4 style="color: red; text-align: -moz-center"><span>Przepis został usunięty z planu</span></h4>
+            </c:if>
+
+
             <table class="table">
 
                 <c:forEach items="${days}" var="day">

@@ -19,7 +19,7 @@ public class RecipeDelFromPlan extends HttpServlet {
 
         PlanDao.deleteRecipeFromPlan(recipePlanId);
 
-        response.sendRedirect("/app/plan/details?planId="+planId);
+        response.sendRedirect("/app/plan/details?planId="+planId+"&deleted=true");
 
     }
 }
