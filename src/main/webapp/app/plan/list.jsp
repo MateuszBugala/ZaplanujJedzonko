@@ -19,6 +19,13 @@
                     </div>
                 </div>
 
+                <c:if test ="${not empty param.deleted}">
+                    <h4 style="color: red; text-align: -moz-center"><span>Plan został usunięty</span></h4>
+                </c:if>
+                <c:if test ="${not empty param.blocked}">
+                    <h3 style="color: red; text-align: -moz-center">Nie można usunąć planu ponieważ zawiera przepisy</h3>
+                </c:if>
+
                 <div class="schedules-content">
                     <table class="table border-bottom">
                         <thead>
@@ -32,18 +39,17 @@
                         <tbody class="text-color-lighter">
 
                         <c:if test="${plans.size()>0}">
-                        <c:forEach begin="0" step="1" end="${plans.size()-1}" var="number">
+                        <c:forEach begin="0" step="1" end="${plans.size()-1}" var="number" varStatus="item">
 
                             <tr class="d-flex">
-                                <td class="col-1">${plans.get(number).getId()}</td>
+                                <td class="col-1">${item.count}</td>
                                 <td class="col-2">${plans.get(number).getName()}</td>
                                 <td class="col-7">
                                         ${plans.get(number).getDescription()}
                                 </td>
                                 <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
 
-                                    <a href='<c:url value="/app/PlanDelFromListConfirm">
-                                <c:param name = "planId" value = "${plans.get(number).getId()}"/>
+                                    <a href='<c:url value="#confirmation${plans.get(number).getId()}">
                                 </c:url>' class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
 
                                     <a href='<c:url value="/app/plan/details">
@@ -56,6 +62,20 @@
 
                                 </td>
                             </tr>
+
+                            <div id="confirmation${plans.get(number).getId()}" class="modalDialog">
+                                <div style="color: #00d9ff">
+                                    <a href="#close" title="Close" class="close">X</a>
+                                    <h3 style="text-align: -moz-center">Usuwanie planu</h3>
+                                    <p></p>
+                                    <p style="margin-top: 50px; margin-bottom: 50px">Czy na pewno chcesz usunąć ten plan?<br>(tej
+                                        operacji nie da się cofnąć)</p>
+                                    <p></p>
+                                    <a href="/app/plan/delete?planId=${plans.get(number).getId()}"
+                                       class="btn btn-danger rounded-0 text-light m-1">Tak, usuń</a>
+                                    <a href="#" class="btn btn-info rounded-0 text-light m-1">Nie, wróć</a>
+                                </div>
+                            </div>
 
                         </c:forEach>
                         </c:if>

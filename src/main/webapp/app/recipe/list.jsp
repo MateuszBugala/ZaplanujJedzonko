@@ -16,11 +16,11 @@
                                                                                   class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Dodaj
                         przepis</a></div>
                 </div>
-                <c:if test ="${not empty delConf}">
-                    <h3 style="color: red; text-align: -moz-center">${delConf}</h3>
+                <c:if test ="${not empty param.deleted}">
+                    <h4 style="color: red; text-align: -moz-center"><span>Przepis został usunięty</span></h4>
                 </c:if>
-                <c:if test ="${not empty delStop}">
-                    <h3 style="color: red; text-align: -moz-center">${delStop}</h3>
+                <c:if test ="${not empty param.blocked}">
+                    <h3 style="color: red; text-align: -moz-center">Nie można usunąć przepisu ponieważ jest dodany do planu</h3>
                 </c:if>
 
                 <table class="table border-bottom schedules-content">

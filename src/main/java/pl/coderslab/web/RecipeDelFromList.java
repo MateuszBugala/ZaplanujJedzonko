@@ -23,13 +23,10 @@ public class RecipeDelFromList extends HttpServlet {
 
         if (!used) {
             RecipeDao.delete(recipeId);
-            String delConf = "Przepis został usunięty";
-            request.setAttribute("delConf", delConf);
-            getServletContext().getRequestDispatcher("/app/recipe/list/").forward(request, response);
+            response.sendRedirect("/app/recipe/list/?deleted=true");
+
         } else {
-            String delStop = "Nie można usunąć przepisu ponieważ jest dodany do planu";
-            request.setAttribute("delStop", delStop);
-            getServletContext().getRequestDispatcher("/app/recipe/list/").forward(request, response);
+            response.sendRedirect("/app/recipe/list/?blocked=true");
 
         }
     }
