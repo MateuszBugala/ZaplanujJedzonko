@@ -16,7 +16,12 @@
                                                                                   class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Dodaj
                         przepis</a></div>
                 </div>
-
+                <c:if test ="${not empty delConf}">
+                    <h3 style="color: red; text-align: -moz-center">${delConf}</h3>
+                </c:if>
+                <c:if test ="${not empty delStop}">
+                    <h3 style="color: red; text-align: -moz-center">${delStop}</h3>
+                </c:if>
 
                 <table class="table border-bottom schedules-content">
 
@@ -60,7 +65,7 @@
                                 <p style="margin-top: 50px; margin-bottom: 50px">Czy na pewno chcesz usunąć ten przepis?<br>(tej
                                     operacji nie da się cofnąć)</p>
                                 <p></p>
-                                <a href="/app/RecipeDelFromListConfirm?recipeId=${recipe.id}"
+                                <a href="/app/recipe/delete?recipeId=${recipe.id}"
                                    class="btn btn-danger rounded-0 text-light m-1">Tak, usuń</a>
                                 <a href="#" class="btn btn-info rounded-0 text-light m-1">Nie, wróć</a>
                             </div>

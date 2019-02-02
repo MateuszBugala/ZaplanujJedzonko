@@ -1,6 +1,5 @@
 package pl.coderslab.web;
 
-import pl.coderslab.dao.PlanDao;
 import pl.coderslab.dao.RecipeDao;
 
 import javax.servlet.ServletException;
@@ -11,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/app/RecipeDelFromList")
+@WebServlet("/app/recipe/delete")
 public class RecipeDelFromList extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -20,24 +19,22 @@ public class RecipeDelFromList extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         int recipeId = Integer.parseInt(request.getParameter("recipeId"));
+        boolean used = recipeUsedInPlan(recipeId);
 
-
-        boolean checked = checkRecipePlan(recipeId);
-
-        if (!checked) {
+        if (!used) {
             RecipeDao.delete(recipeId);
-            String warning = "Przepis został usunięty";
-            request.setAttribute("warning", warning);
+            String delConf = "Przepis został usunięty";
+            request.setAttribute("delConf", delConf);
             getServletContext().getRequestDispatcher("/app/recipe/list/").forward(request, response);
         } else {
-            String warning = "Nie można usunąć przepisu ponieważ jest dodany do planu";
-            request.setAttribute("warning", warning);
+            String delStop = "Nie można usunąć przepisu ponieważ jest dodany do planu";
+            request.setAttribute("delStop", delStop);
             getServletContext().getRequestDispatcher("/app/recipe/list/").forward(request, response);
 
         }
     }
 
-    public static boolean checkRecipePlan(int recipeId) {
+    public static boolean recipeUsedInPlan(int recipeId) {
         List<Integer> list = RecipeDao.selectRecipeIdFromPlan();
         for (Integer el : list) {
             if (el == recipeId) {
