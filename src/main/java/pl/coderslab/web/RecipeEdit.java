@@ -15,35 +15,36 @@ import java.io.IOException;
 @WebServlet("/app/recipe/edit")
 public class RecipeEdit extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
+        String recipeName = request.getParameter("recipeName");
+        String recipeDescription = request.getParameter("recipeDescription");
+        int preparationTime = Integer.parseInt(request.getParameter("recipePreparationTime"));
+        String recipePreparation =request.getParameter("recipePreparation");
+        String recipeIngredients = request.getParameter("recipeIngredients");
         int recipeId = Integer.valueOf(request.getParameter("recipeId"));
-        Recipe recipe = RecipeDao.read(recipeId);
-        int adminId = recipe.getAdmins().getId();
-        Admins admin = AdminDao.read(adminId);
 
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        int prepareTime = Integer.parseInt(request.getParameter("prepartime"));
-        String ingredients = request.getParameter("ingredients");
-        String preparation =request.getParameter("preparation");
+        Recipe editedRecipe = RecipeDao.read(recipeId);
+        editedRecipe.setName(recipeName);
+        editedRecipe.setDescription(recipeDescription);
+        editedRecipe.setPreparationTime(preparationTime);
+        editedRecipe.setPreparation(recipePreparation);
+        editedRecipe.setIngredients(recipeIngredients);
 
-        Recipe recipeUpdated = new Recipe(recipeId,name,ingredients,description,prepareTime,preparation,admin);
-        RecipeDao.update(recipeUpdated);
+        RecipeDao.update(editedRecipe);
 
         response.sendRedirect("/app/recipe/list/");
-
-
-
-
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String recipId = request.getParameter("recipeId");
-        request.setAttribute("recipeId", recipId);
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+
+        int recipId = Integer.parseInt(request.getParameter("recipeId"));
+        Recipe recipeFromDB = RecipeDao.read(recipId);
+
+        request.setAttribute("recipeFromDB", recipeFromDB);
 
         getServletContext().getRequestDispatcher("/app/recipe/edit.jsp").forward(request, response);
     }

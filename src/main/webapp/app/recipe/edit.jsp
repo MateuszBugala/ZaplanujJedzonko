@@ -1,61 +1,75 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.io.*,java.util.*,java.sql.*" %>
-<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+<%@include file="../../header.jsp" %>
 
-<!DOCTYPE html>
-<html lang="en">
+<section class="dashboard-section">
+    <div class="row dashboard-nowrap">
 
-<head>
+        <%@include file="../../sidepanel.jsp" %>
 
-</head>
+        <div class="m-4 p-3 width-medium text-color-darker">
+            <div class="dashboard-content border-dashed p-3 m-4 view-height">
+                <div class="mt-4 ml-4 mr-4">
+                    <div class="row border-bottom border-3">
 
-
-<body>
-<%@include file="/header.jsp" %>
-<sql:setDataSource var="db" driver="com.mysql.jdbc.Driver"
-                   url="jdbc:mysql://localhost/scrumlab"
-                   user="root" password="coderslab"/>
-
-<sql:query dataSource="${db}" var="result">
-    SELECT * from recipe where id=${param.recipeId};
-</sql:query>
-
-<form action="/app/recipe/edit" method="post">
-    <input type="hidden" name="recipeId" value="${recipeId}">
+                        <div class="col"><h3 class="color-header text-uppercase">Edycja przepisu</h3></div>
+                        <div class="col d-flex justify-content-end mb-2"><button onclick="javascript:document.formularz.submit();" type="submit" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Zapisz</button></div>
+                    </div>
 
 
-    <c:forEach var="row" items="${result.rows}">
-        <label>Nazwa przepisu
-            <input type="text" name="name" value="${row.name}">
-        </label>
-        <br>
-        <label>Opis przepisu
+                    <form action="/app/recipe/edit" method="post" name="formularz">
 
-            <input type="text" name="description" value="${row.description}">
-        </label>
-        <br>
-        <label> Przygotowanie (minuty)
-            <input type="text" name="prepartime" value="${row.preparation_time}">
-        </label>
-        <br>
-        <label>Składniki
-            <textarea cols="70" rows="10"name="ingredients">${row.ingredients}</textarea>
-        </label>
-        <br>
-        <label>Sposób przygotowania
-            <textarea cols="70" rows="10" name="preparation">"${row.preparation}"</textarea>
-        </label>
-        <br>
-        <input type="submit" value="Zapisz">
 
-    </c:forEach>
-</form>
+                    <table class="table borderless">
+                        <tbody>
+                        <tr class="d-flex">
+                            <th scope="row" class="col-2">Nazwa Przepisu</th>
+                            <td class="col-7">
+                                <input type="text" class="form-control" value="${recipeFromDB.name}" name="recipeName">
+                            </td>
+                        </tr>
 
-<%@include file="/footer.jsp" %>
-</body>
-</html>
+                        <tr class="d-flex">
+                            <th scope="row" class="col-2">Opis przepisu</th>
+                            <td class="col-7"> <textarea class="w-100 p-1" rows="5" name="recipeDescription">${recipeFromDB.description}</textarea></td>
+                        </tr>
 
+                        <tr class="d-flex">
+                            <th scope="row" class="col-2">Przygotowanie (minuty)</th>
+                            <td class="col-3">
+                                <input class="p-1" type="number" value="${recipeFromDB.preparationTime}" name="recipePreparationTime">
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="row d-flex">
+                        <div class="col-5 border-bottom border-3"><h3 class="text-uppercase">Sposób przygotowania</h3></div>
+                        <div class="col-2"></div>
+                        <div class="col-5 border-bottom border-3"><h3 class="text-uppercase">Składniki</h3></div>
+                    </div>
+                    <div class="row d-flex">
+                        <div class="col-5 p-4">
+                            <textarea class="w-100 p-1" rows="10" name="recipePreparation">${recipeFromDB.preparation}</textarea>
+                        </div>
+                        <div class="col-2"></div>
+
+                        <div class="col-5 p-4">
+                                    <textarea class="w-100 p-1" rows="10" name="recipeIngredients">${recipeFromDB.ingredients}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <input name="recipeId" hidden value="${recipeFromDB.id}">
+        </form>
+
+    </div>
+</section>
+
+
+<%@include file="../../footer.jsp" %>
 
