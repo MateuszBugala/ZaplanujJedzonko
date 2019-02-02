@@ -44,7 +44,11 @@
                     </div>
                     <div class="row d-flex">
                         <div class="col-5 p-4">
-                            <p>${recipe.getPreparation()}</p>
+                            <ul class="col-5 p-4 list-unstyled">
+                                <c:forEach begin="0" step="1" end="${preparation.size()-1}" var="number">
+                                    <li>${preparation.get(number)}</li>
+                                </c:forEach>
+                            </ul>
                         </div>
                         <div class="col-2"></div>
                         <ul class="col-5 p-4 list-unstyled">

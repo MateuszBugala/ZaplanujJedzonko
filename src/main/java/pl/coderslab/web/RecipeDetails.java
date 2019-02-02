@@ -20,19 +20,28 @@ public class RecipeDetails extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String recipeId = request.getParameter("recipeId");
 
         Recipe recipe = RecipeDao.read(Integer.parseInt(recipeId));
-
         String ingredients = recipe.getIngredients();
+        String preparation = recipe.getPreparation();
 
-        StringTokenizer token = new StringTokenizer(ingredients,"\n");
-        List<String> list = new ArrayList<>();
-        while (token.hasMoreTokens()) list.add(token.nextToken());
+        StringTokenizer ingredientsToken = new StringTokenizer(ingredients,"\n");
+        List<String> ingredientsDisplay = new ArrayList<>();
+        while (ingredientsToken.hasMoreTokens()) {
+            ingredientsDisplay.add(ingredientsToken.nextToken());
+        }
+
+        StringTokenizer preparationToken = new StringTokenizer(preparation,"\n");
+        List<String> preparationDisplay = new ArrayList<>();
+        while (preparationToken.hasMoreTokens()) {
+            preparationDisplay.add(preparationToken.nextToken());
+        }
 
         request.setAttribute("recipe", recipe);
-        request.setAttribute("ingredients", list);
+        request.setAttribute("ingredients", ingredientsDisplay);
+        request.setAttribute("preparation", preparationDisplay);
+
         getServletContext().getRequestDispatcher("/app/recipe/details.jsp").forward(request, response);
     }
 }
