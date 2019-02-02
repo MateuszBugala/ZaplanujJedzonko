@@ -28,12 +28,12 @@
                             <th scope="col" class="col-2 center">AKCJE</th>
                         </tr>
                         </thead>
-                        <c:forEach items="${recipes}" var="recipe">
+                        <c:forEach items="${recipes}" var="recipe" varStatus="item">
 
 
                         <tbody class="text-color-lighter">
                         <tr class="d-flex">
-                            <th scope="row" class="col-1">${recipe.id}</th>
+                            <th scope="row" class="col-1">${item.count}</th>
                             <td class="col-2">${recipe.name}</td>
                             <td class="col-7">${recipe.description}</td>
                             <td class="col-2 d-flex align-items-right justify-content-center flex-wrap">
