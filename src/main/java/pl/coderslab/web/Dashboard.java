@@ -58,8 +58,10 @@ public class Dashboard extends HttpServlet {
             try (Connection connection = DbUtil.getConnection();
                  PreparedStatement statement = connection.prepareStatement("SELECT day_name.name\n" +
                          "FROM `recipe_plan`\n" +
-                         "JOIN day_name on day_name.id=day_name_id \n" +
-                         "WHERE plan_id =  (SELECT MAX(id) from plan WHERE admin_id = ?) \n" +
+                         "JOIN day_name on day_name.id=day_name_id\n" +
+                         "WHERE plan_id =  (SELECT max(plan.id) FROM `recipe_plan`\n" +
+                         "JOIN plan on plan.id = recipe_plan.plan_id\n" +
+                         "WHERE plan.admin_id = ?)\n" +
                          "group by day_name.name, day_name.order\n" +
                          "order by day_name.order")) {
                 statement.setInt(1, adminId);

@@ -29,7 +29,9 @@ public class PlanDao {
             "JOIN day_name on day_name.id=day_name_id\n" +
             "JOIN recipe on recipe.id=recipe_id\n" +
             "JOIN plan on plan.id = recipe_plan.plan_id\n" +
-            "WHERE plan_id =  (SELECT MAX(id) from plan WHERE admin_id = ?)\n" +
+            "WHERE plan_id =  (SELECT max(plan.id) FROM `recipe_plan`\n" +
+            "JOIN plan on plan.id = recipe_plan.plan_id\n" +
+            "WHERE plan.admin_id = ? )\n" +
             "ORDER by day_name.order, recipe_plan.order";
 
     private static final String DELETE_RECIPE_FROM_PLAN = "DELETE FROM recipe_plan where id=?";

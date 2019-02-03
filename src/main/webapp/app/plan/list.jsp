@@ -23,7 +23,7 @@
                     <h4 style="color: red; text-align: -moz-center"><span>Plan został usunięty</span></h4>
                 </c:if>
                 <c:if test ="${not empty param.blocked}">
-                    <h3 style="color: red; text-align: -moz-center">Nie można usunąć planu ponieważ zawiera przepisy</h3>
+                    <h3 style="color: red; text-align: -moz-center">Nie można usunąć planu ponieważ zawiera posiłki</h3>
                 </c:if>
 
                 <div class="schedules-content">
