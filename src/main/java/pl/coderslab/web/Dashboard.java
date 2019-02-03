@@ -3,7 +3,7 @@ package pl.coderslab.web;
 import pl.coderslab.dao.PlanDao;
 import pl.coderslab.dao.RecipeDao;
 import pl.coderslab.model.Admins;
-import pl.coderslab.model.RecentPlan;
+import pl.coderslab.model.RecipePlan;
 import pl.coderslab.utils.DbUtil;
 
 import javax.servlet.ServletException;
@@ -36,7 +36,7 @@ public class Dashboard extends HttpServlet {
         request.setAttribute("recipeNumber", numberOfRecipes);
         request.setAttribute("planNumber", numberOfPlans);
 
-        List<RecentPlan> recentPlan = PlanDao.showRecentPlan(admin.getId());
+        List<RecipePlan> recentPlan = PlanDao.showRecentPlan(admin.getId());
         if (recentPlan.size() != 0) {
             List<String> days = showUniqueDays(admin.getId());
 

@@ -19,6 +19,13 @@
                     </div>
                 </div>
 
+                <c:if test ="${not empty message}">
+                    <h3 style="color: red; text-align: -moz-center">${message}</h3>
+                </c:if>
+                <c:if test ="${not empty ok}">
+                    <h3 style="color: green; text-align: -moz-center">${ok}</h3>
+                </c:if>
+
                 <div class="schedules-content">
                     <form name="formularz" action="/app/recipe/plan/add" method="post">
 
@@ -76,12 +83,7 @@
                             </div>
                         </div>
 
-                        <c:if test ="${not empty message}">
-                            <h3 style="color: red">${message}</h3>
-                        </c:if>
-                        <c:if test ="${not empty ok}">
-                            <h3 style="color: green">${ok}</h3>
-                        </c:if>
+
                     </form>
                 </div>
             </div>

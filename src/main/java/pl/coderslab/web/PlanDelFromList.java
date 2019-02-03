@@ -1,8 +1,6 @@
 package pl.coderslab.web;
 
 import pl.coderslab.dao.PlanDao;
-import pl.coderslab.dao.RecipeDao;
-import pl.coderslab.model.Plan;
 import pl.coderslab.model.RecipePlan;
 
 import javax.servlet.ServletException;

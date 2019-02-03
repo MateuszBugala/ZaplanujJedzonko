@@ -6,18 +6,20 @@ public class RecipePlan {
     private String mealName;
     private String recipeName;
     private String recipeDescription;
+    private String planName;
     private int recipePlanId;
 
-    public RecipePlan(String dayName, String mealName, String recipeName, String recipeDescription, int recipePlanId) {
+    public RecipePlan(String dayName, String mealName, String recipeName, String recipeDescription, String planName, int recipePlanId) {
         this.dayName = dayName;
         this.mealName = mealName;
         this.recipeName = recipeName;
         this.recipeDescription = recipeDescription;
+        this.planName = planName;
         this.recipePlanId = recipePlanId;
 
     }
 
-    public RecipePlan(){}
+    public RecipePlan(){};
 
     public String getDayName() {
         return dayName;
@@ -51,6 +53,14 @@ public class RecipePlan {
         this.recipeDescription = recipeDescription;
     }
 
+    public String getPlanName() {
+        return planName;
+    }
+
+    public void setPlanName(String planName) {
+        this.planName = planName;
+    }
+
     public int getRecipePlanId() {
         return recipePlanId;
     }
@@ -66,7 +76,8 @@ public class RecipePlan {
                 ", mealName='" + mealName + '\'' +
                 ", recipeName='" + recipeName + '\'' +
                 ", recipeDescription='" + recipeDescription + '\'' +
-                ", recipePlanId=" + recipePlanId +
+                ", planName='" + planName + '\'' +
+                ", recipeId=" + recipePlanId +
                 '}';
     }
 }

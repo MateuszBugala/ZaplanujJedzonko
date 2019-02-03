@@ -3,7 +3,6 @@ package pl.coderslab.dao;
 import pl.coderslab.exception.NotFoundException;
 import pl.coderslab.model.Admins;
 import pl.coderslab.model.Plan;
-import pl.coderslab.model.RecentPlan;
 import pl.coderslab.model.RecipePlan;
 import pl.coderslab.utils.DbUtil;
 
@@ -35,11 +34,14 @@ public class PlanDao {
 
     private static final String DELETE_RECIPE_FROM_PLAN = "DELETE FROM recipe_plan where id=?";
 
-    private static final String FIND_RECIPES_BY_PLAN_ID = "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description, recipe_plan.id as recipe_plan_id\n" +
+    private static final String FIND_RECIPES_BY_PLAN_ID = "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description, plan.name as plan_name, recipe_plan.id\n" +
             "FROM `recipe_plan`\n" +
             "JOIN day_name on day_name.id=day_name_id\n" +
-            "JOIN recipe on recipe.id=recipe_id WHERE plan_id=? \n" +
+            "JOIN recipe on recipe.id=recipe_id \n" +
+            "JOIN plan on plan.id = recipe_plan.plan_id\n" +
+            "WHERE plan_id=?\n" +
             "ORDER by day_name.order, recipe_plan.order";
+
 
     public static Plan create(Plan plan) {
         try (Connection connection = DbUtil.getConnection();
@@ -195,8 +197,8 @@ public class PlanDao {
     }
 
 
-    public static List<RecentPlan> showRecentPlan(int adminId) {
-        List<RecentPlan> list = new ArrayList<>();
+    public static List<RecipePlan> showRecentPlan(int adminId) {
+        List<RecipePlan> list = new ArrayList<>();
 
         if (adminId == 0 || adminId < 0) {
             System.out.println("Niepoprawne id użytkownika");
@@ -207,7 +209,7 @@ public class PlanDao {
                 statement.setInt(1, adminId);
                 ResultSet set = statement.executeQuery();
                 while (set.next()) {
-                    RecentPlan plan = new RecentPlan();
+                    RecipePlan plan = new RecipePlan();
                     plan.setDayName(set.getString(1));
                     plan.setMealName(set.getString(2));
                     plan.setRecipeName(set.getString(3));
@@ -262,7 +264,8 @@ public class PlanDao {
                     plan.setMealName(set.getString(2));
                     plan.setRecipeName(set.getString(3));
                     plan.setRecipeDescription(set.getString(4));
-                    plan.setRecipePlanId(set.getInt(5));
+                    plan.setPlanName(set.getString(5));
+                    plan.setRecipePlanId(set.getInt(6));
 
                     list.add(plan);
                 }
