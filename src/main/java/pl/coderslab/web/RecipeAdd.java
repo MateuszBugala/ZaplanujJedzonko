@@ -1,5 +1,6 @@
 package pl.coderslab.web;
 
+import com.mysql.jdbc.StringUtils;
 import pl.coderslab.dao.RecipeDao;
 import pl.coderslab.model.Admins;
 import pl.coderslab.model.Recipe;
@@ -15,20 +16,26 @@ import java.io.IOException;
 @WebServlet("/app/recipe/add")
 public class RecipeAdd extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
 
+        String preparationTime = request.getParameter("preparation_time");
+        if (StringUtils.isNullOrEmpty(preparationTime) || !StringUtils.isStrictlyNumeric(preparationTime)) {
+            request.setAttribute("preparationTimeError", "preparationTimeError");
+            doGet(request, response);
+            return;
+        }
+
         String name = request.getParameter("name");
         String description = request.getParameter("description");
-        int preparationTime = Integer.parseInt(request.getParameter("preparation_time"));
+        int preparationTimeInt = Integer.parseInt(preparationTime);
         String preparation = request.getParameter("preparation");
         String ingredients = request.getParameter("ingredients");
 
         HttpSession sess = request.getSession();
         Admins admin = (Admins)sess.getAttribute("currentUser");
 
-        Recipe recipe = new Recipe(name,ingredients,description,preparationTime,preparation,admin);
+        Recipe recipe = new Recipe(name,ingredients,description,preparationTimeInt,preparation,admin);
 
         RecipeDao.create(recipe);
 

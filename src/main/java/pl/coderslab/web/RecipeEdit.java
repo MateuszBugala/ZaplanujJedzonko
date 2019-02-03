@@ -1,5 +1,6 @@
 package pl.coderslab.web;
 
+import com.mysql.jdbc.StringUtils;
 import pl.coderslab.dao.AdminDao;
 import pl.coderslab.dao.RecipeDao;
 import pl.coderslab.model.Admins;
@@ -18,9 +19,16 @@ public class RecipeEdit extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
 
+        String recipePreparationTime = request.getParameter("recipePreparationTime");
+        if (StringUtils.isNullOrEmpty(recipePreparationTime) || !StringUtils.isStrictlyNumeric(recipePreparationTime)) {
+            request.setAttribute("preparationTimeError", "preparationTimeError");
+            doGet(request, response);
+            return;
+        }
+
         String recipeName = request.getParameter("recipeName");
         String recipeDescription = request.getParameter("recipeDescription");
-        int preparationTime = Integer.parseInt(request.getParameter("recipePreparationTime"));
+        int preparationTime = Integer.parseInt(recipePreparationTime);
         String recipePreparation =request.getParameter("recipePreparation");
         String recipeIngredients = request.getParameter("recipeIngredients");
         int recipeId = Integer.valueOf(request.getParameter("recipeId"));

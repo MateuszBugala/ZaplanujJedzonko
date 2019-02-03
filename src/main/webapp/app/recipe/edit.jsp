@@ -17,6 +17,10 @@
                         <div class="col d-flex justify-content-end mb-2"><button onclick="javascript:document.formularz.submit();" type="submit" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Zapisz</button></div>
                     </div>
 
+                    <c:if test ="${not empty preparationTimeError}">
+                        <span style="color: red; text-align: -moz-center">Czas przygotowania jest nieprawidłowy, spróbuj jeszcze raz</span>
+                    </c:if>
+
 
                     <form action="/app/recipe/edit" method="post" name="formularz">
 

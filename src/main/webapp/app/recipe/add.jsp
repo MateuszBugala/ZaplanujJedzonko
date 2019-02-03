@@ -19,6 +19,9 @@
                         <div class="col d-flex justify-content-end mb-2"><button type="submit" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Zapisz</button></div>
                     </div>
 
+                        <c:if test ="${not empty preparationTimeError}">
+                            <span style="color: red; text-align: -moz-center">Czas przygotowania jest nieprawidłowy, spróbuj jeszcze raz</span>
+                        </c:if>
 
                     <table class="table borderless">
                         <tbody>
@@ -36,7 +39,7 @@
                         <tr class="d-flex">
                             <th scope="row" class="col-2">Przygotowanie (minuty)</th>
                             <td class="col-3">
-                                <input class="p-1" type="number" value="0" name="preparation_time">
+                                <input class="p-1" type="number" value="1" name="preparation_time">
                             </td>
                         </tr>
 
