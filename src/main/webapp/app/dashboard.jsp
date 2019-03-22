@@ -80,9 +80,6 @@
                                     <td class="col-2">${meal.mealName}</td>
                                     <td class="col-5">${meal.recipeName}</td>
                                     <td class="col-5">${meal.recipeDescription}</td>
-                                    <%--<td class="col-2">--%>
-                                        <%--<button type="button" class="btn btn-primary rounded-0">Szczegóły</button>--%>
-                                    <%--</td>--%>
                                 </tr>
 
                             </c:if>

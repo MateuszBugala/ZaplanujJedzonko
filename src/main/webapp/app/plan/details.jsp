@@ -69,10 +69,6 @@
                                            href="#confirmation${meal.recipePlanId}">Usuń</a>
 
                                     </td>
-                                    <%--aktywując poniższy przycisk trzeba zmienić na "col-1" dla przycisku usuń--%>
-                                    <%--<td class="col-2 center">--%>
-                                        <%--<a href="#" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>--%>
-                                    <%--</td>--%>
                                 </tr>
 
                                 </c:if>

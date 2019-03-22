@@ -28,7 +28,6 @@ public class RecipeAddToPlan extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-        //mealOrder w bazie = int; należy sprawdzić poprawność wprowadzonych danych; pozostałe parametry mają prawidłowy typ
         String mealOrder = request.getParameter("mealOrder");
         if (StringUtils.isNullOrEmpty(mealOrder) || !StringUtils.isStrictlyNumeric(mealOrder)) {
             request.setAttribute("message", "Numer posiłku jest nieprawidłowy, spróbuj jeszcze raz");
@@ -56,7 +55,6 @@ public class RecipeAddToPlan extends HttpServlet {
         Admins authorizedUser = (Admins) sess.getAttribute("currentUser");
         int userId = authorizedUser.getId();
 
-//        czytam plany dla zalogowanego usera i przesyłam je jako atrybut do jsp
         List<Plan> allPlans = PlanDao.findAll();
         List<Plan> userPlans = new ArrayList<>();
         for (Plan plan : allPlans) {
@@ -64,14 +62,12 @@ public class RecipeAddToPlan extends HttpServlet {
                 userPlans.add(plan);
             }
         }
-        //użykownik nie będzie mógł użyć tego dodawnia jeśli nie ma jeszcze planu
         if (userPlans.size() == 0){
             response.sendRedirect("/app/dashboard/?emptyplanorrecipe=true");
             return;
         }
         request.setAttribute("userPlans", userPlans);
 
-//        czytam przepisy dla zalogowanego usera i przesyłam je jako atrybut do jsp
         List<Recipe> allRecipes = RecipeDao.findAll();
         List<Recipe> userRecipes = new ArrayList<>();
         for (Recipe recipe : allRecipes) {
@@ -79,14 +75,12 @@ public class RecipeAddToPlan extends HttpServlet {
                 userRecipes.add(recipe);
             }
         }
-        //użykownik nie będzie mógł użyć tego dodawnia jeśli nie ma jeszcze przepisu
         if (userRecipes.size() == 0){
             response.sendRedirect("/app/dashboard/?emptyplanorrecipe=true");
             return;
         }
         request.setAttribute("userRecipes", userRecipes);
 
-//        czytam listę dni z tabeli i przesyłam je jako atrybut do jsp
         List<String[]> daysList = getDays();
         request.setAttribute("daysList", daysList);
 

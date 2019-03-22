@@ -7,7 +7,7 @@ INSERT INTO `day_name` (`id`, `name`, `order`) VALUES
 (6, 'sobota', 6),
 (7, 'niedziela', 7);
 
-INSERT INTO `admins` (`id`, `first_name`, `last_name`, `email`, `password`, `superadmin`) VALUES (null, 'Michał', 'Biedzki', 'arkadiusz.jozwiak@coderslab.pl', '123qwe', 1),
+INSERT INTO `admins` (`id`, `first_name`, `last_name`, `email`, `password`, `superadmin`) VALUES (null, 'Michał', 'Nowak', 'michał.nowak@com.pl', '123qwe', 1),
 (null, NULL, NULL, NULL, NULL, NULL);
 
 INSERT INTO `plan` (`id`, `name`, `description`, `created`, `admin_id`) VALUES

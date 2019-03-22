@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminDao {
-    // ZAPYTANIA SQL
+
     private static final String CREATE_ADMIN_QUERY = "INSERT INTO admins (id, first_name, last_name, email, password, superadmin, enable) VALUES (null, ?,?,?,?,?,?)";
     private static final String DELETE_ADMIN_QUERY = "DELETE FROM admins WHERE id = ?";
     private static final String FIND_ALL_ADMIN_QUERY = "SELECT * FROM admins";
@@ -22,7 +22,6 @@ public class AdminDao {
     private static final String UPDATE_ADMIN_QUERY = "UPDATE admins SET first_name = ? , last_name = ?, email = ?, password = ?, superadmin = ?, enable = ? WHERE id = ?";
 
 
-    // Get admin by id
     public static Admins read(Integer adminId) {
         Admins admin = new Admins();
         try (Connection connection = DbUtil.getConnection();
@@ -49,7 +48,6 @@ public class AdminDao {
     }
 
 
-    //Return all admin
     public static List<Admins> findAll() {
         List<Admins> adminList = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
@@ -75,7 +73,6 @@ public class AdminDao {
 
     }
 
-    //Create admin
     public static Admins create(Admins admin) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement insertStm = connection.prepareStatement(CREATE_ADMIN_QUERY,
@@ -107,7 +104,6 @@ public class AdminDao {
         return null;
     }
 
-    //Remove admin
     public static void delete(Integer adminId) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_ADMIN_QUERY);) {
@@ -123,7 +119,6 @@ public class AdminDao {
         }
     }
 
-    //Update admin
     public static void update(Admins admin) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_ADMIN_QUERY);) {
